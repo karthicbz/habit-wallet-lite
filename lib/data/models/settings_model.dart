@@ -1,17 +1,12 @@
-enum Language{
-  english, tamil;
-}
+import 'package:habit_wallet_lite/hive/hive_adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 
-class SettingsModel {
+enum Language { english, tamil }
+
+class SettingsModel extends HiveObject {
   final bool darkMode;
   final Language language;
   final bool remainder;
-
-  const SettingsModel({
-    required this.darkMode,
-    required this.language,
-    required this.remainder,
-  });
 
   SettingsModel copyWith({
     bool? darkMode,
@@ -24,4 +19,10 @@ class SettingsModel {
       remainder: remainder ?? this.remainder,
     );
   }
+
+  SettingsModel({
+    required this.darkMode,
+    required this.language,
+    required this.remainder,
+  });
 }
