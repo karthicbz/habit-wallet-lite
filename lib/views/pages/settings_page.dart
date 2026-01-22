@@ -16,6 +16,7 @@ class SettingsPage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(8),
             child: Column(
+              spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Column(
@@ -86,6 +87,13 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 100,),
+                ElevatedButton(
+                    onPressed: (){}, style: ButtonStyle(
+                  elevation: WidgetStatePropertyAll(0),
+                  backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
+                  padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 16))
+                ), child: Text(logoutText))
               ],
             ),
           ),
