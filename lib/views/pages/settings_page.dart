@@ -18,9 +18,73 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  appearanceText.toUpperCase(),
-                  style: Theme.of(context).textTheme.titleSmall,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      appearanceText.toUpperCase(),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SettingsList(
+                      listTitle: darkModeText,
+                      listSubtitle: darkModeSubtitleText,
+                      listIcon: Icons.dark_mode,
+                      isSwitch: true,
+                    ),
+                  ],
+                ),
+                Divider(color: Colors.grey[200]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      languageTitleText.toUpperCase(),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SettingsList(
+                      listTitle: languageText,
+                      listSubtitle: "",
+                      listIcon: Icons.translate,
+                    ),
+                  ],
+                ),
+                Divider(color: Colors.grey[200]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      dataSyncDisplayText.toUpperCase(),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SettingsList(
+                      listTitle: backgroundSyncTitleText,
+                      listSubtitle: backgroundSyncSubtitleText,
+                      listIcon: Icons.task,
+                      isSwitch: true,
+                    ),
+                    SettingsList(
+                      listTitle: syncTitle,
+                      listSubtitle: "Last Synced 5m ago",
+                      listIcon: Icons.sync,
+                      isButton: true,
+                    ),
+                  ],
+                ),
+                Divider(color: Colors.grey[200]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      notificationTitleText.toUpperCase(),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    SettingsList(
+                      listTitle: dailyRemainderTitleText,
+                      listSubtitle: dailyRemainderSubtitleText,
+                      listIcon: Icons.notifications,
+                      isSwitch: true,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -31,16 +95,20 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class SwitchList extends StatelessWidget {
+class SettingsList extends StatelessWidget {
   final String listTitle;
   final String listSubtitle;
   final IconData listIcon;
+  final bool? isSwitch;
+  final bool? isButton;
 
-  const SwitchList({
+  const SettingsList({
     super.key,
     required this.listTitle,
     required this.listSubtitle,
     required this.listIcon,
+    this.isSwitch,
+    this.isButton,
   });
 
   @override
@@ -49,7 +117,11 @@ class SwitchList extends StatelessWidget {
       leading: Icon(listIcon),
       title: Text(listTitle),
       subtitle: Text(listSubtitle),
-      trailing: Switch(value: false, onChanged: (_) {}),
+      trailing: (isSwitch ?? false)
+          ? Switch(value: false, onChanged: (_) {})
+          : (isButton ?? false)
+          ? OutlinedButton(onPressed: () {}, child: Text("Sync"))
+          : Icon(Icons.arrow_forward_ios, size: 16),
     );
   }
 }

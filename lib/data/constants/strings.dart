@@ -14,6 +14,7 @@ final String appearanceText = "Appearance";
 final String darkModeText = "Dark Mode";
 final String darkModeSubtitleText = "Adjust app theme";
 final String languageTitleText = "Language & Region";
+final String languageText = "Language";
 final String currencyDisplayText = "Currency Display";
 final String dataSyncDisplayText = "Data & Sync";
 final String backgroundSyncTitleText = "Background Sync";
