@@ -7,10 +7,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(settingsTitleText),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   title: Text(settingsTitleText),
+      // ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -19,6 +19,7 @@ class SettingsPage extends StatelessWidget {
               spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Text("Settings", style: Theme.of(context).textTheme.displaySmall ,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
