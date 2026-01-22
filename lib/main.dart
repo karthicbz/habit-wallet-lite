@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
+import 'package:habit_wallet_lite/views/pages/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.greenAccent),
       ),
-      home:  LoginPage(),
+      home:  SettingsPage(),
     );
   }
 }
