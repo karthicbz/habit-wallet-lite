@@ -1,20 +1,47 @@
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
+
+import '../constants/hive_boxes.dart';
 
 part 'settings_provider.g.dart';
 
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
+  late Box<SettingsModel> settings;
+
   @override
-  SettingsModel build(){
-    return SettingsModel(darkMode: false, language: Language.english, remainder: false);
+  SettingsModel build() {
+    settings = Hive.box(settingsBox);
+    if (settings.isEmpty) {
+      return SettingsModel(
+        darkMode: false,
+        language: Language.english,
+        remainder: false,
+      );
+    } else {
+      return settings.values.first;
+    }
   }
 
-  void updateDarkMode(){
+  void updateDarkMode() async{
     state = state.copyWith(darkMode: !state.darkMode);
+    await updateHiveBox();
   }
 
-  void updateRemainder(){
+  void updateRemainder() async{
     state = state.copyWith(remainder: !state.remainder);
+    await updateHiveBox();
+  }
+
+  Future<void> updateHiveBox() async{
+    await settings.clear();
+    await settings.add(
+      SettingsModel(
+        darkMode: state.darkMode,
+        language: Language.english,
+        remainder: state.remainder,
+      ),
+    );
   }
 }

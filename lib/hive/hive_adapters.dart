@@ -5,6 +5,7 @@ part 'hive_adapters.g.dart';
 
 @GenerateAdapters([
   AdapterSpec<SettingsModel>(),
+  AdapterSpec<Language>()
 ])
 
 class HiveAdapters {}

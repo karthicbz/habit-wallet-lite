@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
+import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/hive/hive_registrar.g.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
@@ -13,7 +14,7 @@ void main() async{
   //registering hive adapters
   Hive.registerAdapters();
   //opening hive boxes
-  await Hive.openBox(settingsBox);
+  await Hive.openBox<SettingsModel>(settingsBox);
   runApp(ProviderScope(child: const MyApp()));
 }
 
