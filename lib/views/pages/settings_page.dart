@@ -87,13 +87,13 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 100,),
+                SizedBox(height: 30,),
                 ElevatedButton(
                     onPressed: (){}, style: ButtonStyle(
                   elevation: WidgetStatePropertyAll(0),
                   backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
                   padding: WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 16))
-                ), child: Text(logoutText))
+                ), child: Text(logoutText, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),))
               ],
             ),
           ),

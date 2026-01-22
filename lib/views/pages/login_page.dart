@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -65,7 +66,7 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Checkbox(value: false, onChanged: (_) {}),
                         Text(rememberMeText),
-                        SizedBox(height: 50,),
+                        Spacer(),
                         TextButton(
                           onPressed: () {},
                           child: Text(forgotPinText),
@@ -76,7 +77,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: 30,),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationPage())),
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(0),
                     backgroundColor: WidgetStatePropertyAll(
@@ -95,21 +96,21 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 250,),
-                Card(
-                  elevation: 0,
-                  child: Row(
-                    children: [
-                      Icon(Icons.sync),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          syncMessage,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Card(
+                //   elevation: 0,
+                //   child: Row(
+                //     children: [
+                //       Icon(Icons.sync),
+                //       Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: Text(
+                //           syncMessage,
+                //           style: Theme.of(context).textTheme.bodyMedium,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: 50,),
                 Column(
                   children: [

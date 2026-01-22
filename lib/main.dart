@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.greenAccent),
       ),
-      home:  SettingsPage(),
+      home:  LoginPage(),
     );
   }
 }
