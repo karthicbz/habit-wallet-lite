@@ -15,13 +15,13 @@ class LoginPage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(Icons.payments),
-                    Spacer(),
+
                     Container(
                       width: 50,
                       height: 50,
@@ -45,6 +45,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 20,),
                 Column(
                   spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,7 +65,7 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Checkbox(value: false, onChanged: (_) {}),
                         Text(rememberMeText),
-                        Spacer(),
+                        SizedBox(height: 50,),
                         TextButton(
                           onPressed: () {},
                           child: Text(forgotPinText),
@@ -73,6 +74,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 30,),
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
@@ -92,6 +94,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 250,),
                 Card(
                   elevation: 0,
                   child: Row(
@@ -107,6 +110,7 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 50,),
                 Column(
                   children: [
                     Text(newUserText),
