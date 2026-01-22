@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(0),
                     backgroundColor: WidgetStatePropertyAll(
-                      Theme.of(context).primaryColor,
+                      Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   child: Padding(
@@ -90,7 +90,7 @@ class LoginPage extends StatelessWidget {
                       loginText,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ),

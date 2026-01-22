@@ -17,8 +17,8 @@ class SettingsPage extends ConsumerWidget {
       //   backgroundColor: Colors.transparent,
       //   title: Text(settingsTitleText),
       // ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(8),
             child: Column(
@@ -30,6 +30,7 @@ class SettingsPage extends ConsumerWidget {
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
@@ -46,8 +47,9 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ],
                 ),
-                Divider(color: Colors.grey[200]),
+                Divider(color: Theme.of(context).dividerColor),
                 Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
@@ -61,8 +63,9 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ],
                 ),
-                Divider(color: Colors.grey[200]),
+                Divider(color: Theme.of(context).dividerColor),
                 Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
@@ -83,8 +86,9 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ],
                 ),
-                Divider(color: Colors.grey[200]),
+                Divider(color: Theme.of(context).dividerColor),
                 Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
@@ -107,7 +111,7 @@ class SettingsPage extends ConsumerWidget {
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(0),
                     backgroundColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.inversePrimary,
+                      Theme.of(context).colorScheme.primary,
                     ),
                     padding: WidgetStatePropertyAll(
                       EdgeInsets.symmetric(vertical: 16),
@@ -117,6 +121,7 @@ class SettingsPage extends ConsumerWidget {
                     logoutText,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onPrimary
                     ),
                   ),
                 ),
@@ -152,15 +157,19 @@ class SettingsList extends StatelessWidget {
   //get the switch value and switch and update the state
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(listIcon),
-      title: Text(listTitle),
-      subtitle: Text(listSubtitle),
-      trailing: (isSwitch ?? false)
-          ? Switch(value: switchValue ?? false, onChanged: (_) => switchFunc!())
-          : (isButton ?? false)
-          ? OutlinedButton(onPressed: () {}, child: Text("Sync"))
-          : Icon(Icons.arrow_forward_ios, size: 16),
+    return Material(
+      child: ListTile(
+        tileColor: Theme.of(context).listTileTheme.tileColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(14)),
+        leading: Icon(listIcon),
+        title: Text(listTitle),
+        subtitle: Text(listSubtitle),
+        trailing: (isSwitch ?? false)
+            ? Switch(value: switchValue ?? false, onChanged: (_) => switchFunc!())
+            : (isButton ?? false)
+            ? OutlinedButton(onPressed: () {}, child: Text("Sync"))
+            : Icon(Icons.arrow_forward_ios, size: 16),
+      ),
     );
   }
 }

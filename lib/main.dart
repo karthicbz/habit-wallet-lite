@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
+import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/hive/hive_registrar.g.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
@@ -15,20 +16,20 @@ void main() async{
   Hive.registerAdapters();
   //opening hive boxes
   await Hive.openBox<SettingsModel>(settingsBox);
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends ConsumerWidget {
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    SettingsModel settings = ref.watch(settingsProvider);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
-        colorScheme: .fromSeed(seedColor: Colors.greenAccent),
+        colorScheme: .fromSeed(seedColor: Colors.greenAccent, brightness: (settings.darkMode)?Brightness.dark: Brightness.light,),
       ),
       home:  LoginPage(),
     );
