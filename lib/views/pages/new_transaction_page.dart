@@ -3,14 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_provider.dart';
+import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
 
-class NewTransactionPage extends ConsumerWidget {
+class NewTransactionPage extends ConsumerStatefulWidget {
   const NewTransactionPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<NewTransactionPage> createState() => _NewTransactionPageState();
+}
+
+class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
+  TextEditingController amountEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     TransactionModel transactionModel = ref.watch(transactionProvider);
-    TransactionNotifier transactionNotifier = ref.read(transactionProvider.notifier);
+    TransactionNotifier transactionNotifier = ref.read(
+      transactionProvider.notifier,
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -33,6 +43,7 @@ class NewTransactionPage extends ConsumerWidget {
           child: Padding(
             padding: EdgeInsets.all(12),
             child: Column(
+              spacing: 24,
               children: [
                 Divider(color: Theme.of(context).dividerColor),
                 SegmentedButton(
@@ -47,11 +58,51 @@ class NewTransactionPage extends ConsumerWidget {
                     ),
                   ],
                   selected: {transactionModel.transactionType},
-                  onSelectionChanged: (newSelection){
+                  onSelectionChanged: (newSelection) {
                     // print(newSelection);
                     transactionNotifier.updateTransactionType(newSelection);
                   },
                 ),
+                CustomTextField(
+                  textEditingController: amountEditingController,
+                  label: amountText,
+                  isPassword: false,
+                  textInputType: TextInputType.number,
+                ),
+                TextField(
+                  keyboardType: TextInputType.datetime,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                      labelText: categoryText,
+                      border: OutlineInputBorder(),
+
+                      suffixIcon: GestureDetector(child: Icon(Icons.arrow_drop_down_outlined), onTap: ()=>print("Tapped"),)
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.datetime,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    labelText: dateText,
+                    border: OutlineInputBorder(),
+
+                    suffixIcon: GestureDetector(child: Icon(Icons.calendar_month), onTap: ()=>print("Tapped"),)
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.text,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      labelText: notesText,
+                      border: OutlineInputBorder(),
+                  ),
+                ),
+                ListTile(
+                  title: Text(addAttachmentText),
+                  subtitle: Text(uploadReceiptText),
+                  trailing: Icon(Icons.attach_file),
+                ),
+                Divider(color: Theme.of(context).dividerColor,)
               ],
             ),
           ),
