@@ -16,42 +16,42 @@ enum Category {
 }
 
 class TransactionModel extends HiveObject {
-  final String id;
-  final String remoteId;
+  final String? id;
+  final String? remoteId;
 
-  final String transactionType;
-  final Category category;
-  final double amount;
-  final DateTime transactionTime;
+  final Transaction? transactionType;
+  final Category? category;
+  final double? amount;
+  final DateTime? transactionDate;
 
-  final String notes;
-  final List<Uint8List> files;
+  final String? notes;
+  final List<Uint8List>? files;
 
-  final bool isEditedLocally;
-  final DateTime updatedAt;
-  final DateTime syncedAt;
+  final bool? isEditedLocally;
+  final DateTime? updatedAt;
+  final DateTime? syncedAt;
 
   TransactionModel({
-    required this.id,
-    required this.remoteId,
-    required this.transactionType,
-    required this.category,
-    required this.amount,
-    required this.transactionTime,
-    required this.notes,
-    required this.files,
-    required this.isEditedLocally,
-    required this.updatedAt,
-    required this.syncedAt,
+    this.id,
+    this.remoteId,
+    this.transactionType,
+    this.category,
+    this.amount,
+    this.transactionDate,
+    this.notes,
+    this.files,
+    this.isEditedLocally,
+    this.updatedAt,
+    this.syncedAt,
   });
 
   TransactionModel copyWith({
     String? id,
     String? remoteId,
-    String? transactionType,
+    Transaction? transactionType,
     Category? category,
     double? amount,
-    DateTime? transactionTime,
+    DateTime? transactionDate,
     String? notes,
     List<Uint8List>? files,
     bool? isEditedLocally,
@@ -64,7 +64,7 @@ class TransactionModel extends HiveObject {
       transactionType: transactionType ?? this.transactionType,
       category: category ?? this.category,
       amount: amount ?? this.amount,
-      transactionTime: transactionTime ?? this.transactionTime,
+      transactionDate: transactionDate ?? this.transactionDate,
       notes: notes ?? this.notes,
       files: files ?? this.files,
       isEditedLocally: isEditedLocally ?? this.isEditedLocally,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:hive_ce/hive.dart';

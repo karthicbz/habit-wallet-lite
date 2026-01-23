@@ -29,5 +29,15 @@ final String signupAppMessageText = "Track your expenses anywhere, even without 
 final String confirmPinText = "Confirm PIN";
 final String signupText = "Sign Up";
 final String alreadyAccountText = "Already have an account?";
-
+//new transaction
+final String addTransactionText = "Add Transaction";
+final String saveText = "Save";
+final String expenseText = "Expense";
+final String incomeText = "Income";
+final String amountText = "Amount";
+final String categoryText = "Category";
+final String dateText = "Date";
+final String notesText = "Notes";
+final String addAttachmentText = "Add Attachment";
+final String uploadReceiptText = "Upload receipt or image";
 
