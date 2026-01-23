@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
+import 'package:habit_wallet_lite/views/pages/signup_page.dart';
+import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
+
+import '../widgets/custom_textfield.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -46,18 +50,18 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 20),
                 Column(
                   spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    LoginTextField(
+                    CustomTextField(
                       textEditingController: emailController,
                       label: emailText,
                       textInputType: TextInputType.emailAddress,
                       isPassword: false,
                     ),
-                    LoginTextField(
+                    CustomTextField(
                       textEditingController: pinController,
                       label: "4 $fourDigitPinText",
                       isPassword: true,
@@ -75,9 +79,12 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NavigationPage())),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NavigationPage()),
+                  ),
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(0),
                     backgroundColor: WidgetStatePropertyAll(
@@ -95,7 +102,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 250,),
+                SizedBox(height: 250),
                 // Card(
                 //   elevation: 0,
                 //   child: Row(
@@ -111,15 +118,15 @@ class LoginPage extends StatelessWidget {
                 //     ],
                 //   ),
                 // ),
-                SizedBox(height: 50,),
+                SizedBox(height: 50),
                 Column(
                   children: [
                     Text(newUserText),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        createAccountText,
-                        style: Theme.of(context).textTheme.titleMedium,
+                    CustomTextButton(
+                      buttonText: createAccountText,
+                      buttonAction: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupPage()),
                       ),
                     ),
                   ],
@@ -128,33 +135,6 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LoginTextField extends StatelessWidget {
-  final TextEditingController textEditingController;
-  final String label;
-  final TextInputType? textInputType;
-  final bool isPassword;
-
-  const LoginTextField({
-    super.key,
-    required this.textEditingController,
-    required this.label,
-    required this.isPassword,
-    this.textInputType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: textEditingController,
-      keyboardType: textInputType ?? TextInputType.text,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(),
       ),
     );
   }

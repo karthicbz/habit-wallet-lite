@@ -24,3 +24,10 @@ final String notificationTitleText = "Notifications";
 final String dailyRemainderTitleText = "Daily Remainder";
 final String dailyRemainderSubtitleText = "Remainder at ";
 final String logoutText = "Sign out";
+//sign up
+final String signupAppMessageText = "Track your expenses anywhere, even without an internet connection";
+final String confirmPinText = "Confirm PIN";
+final String signupText = "Sign Up";
+final String alreadyAccountText = "Already have an account?";
+
+
