@@ -1,4 +1,5 @@
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
+import 'package:habit_wallet_lite/data/providers/notification_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
@@ -9,10 +10,13 @@ part 'settings_provider.g.dart';
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
   late Box<SettingsModel> _settings;
+  late NotificationNotifier _notificationNotifier;
 
   @override
   SettingsModel build() {
     _settings = Hive.box(settingsBox);
+    _notificationNotifier = ref.read(notificationProvider.notifier);
+
     if (_settings.isEmpty) {
       return SettingsModel(
         darkMode: false,
@@ -31,6 +35,8 @@ class SettingsNotifier extends _$SettingsNotifier {
   }
 
   void updateRemainder() async{
+    _notificationNotifier.showNotificationPermission();
+    _notificationNotifier.showNotification(title: "Title", body: "Body");
     state = state.copyWith(remainder: !state.remainder);
     await updateHiveBox();
   }

@@ -22,7 +22,7 @@ final String backgroundSyncSubtitleText = "Update data while online";
 final String syncTitle = "Sync Now";
 final String notificationTitleText = "Notifications";
 final String dailyRemainderTitleText = "Daily Remainder";
-final String dailyRemainderSubtitleText = "Remainder at ";
+final String dailyRemainderSubtitleText = "Remainder at 8PM";
 final String logoutText = "Sign out";
 //sign up
 final String signupAppMessageText = "Track your expenses anywhere, even without an internet connection";
