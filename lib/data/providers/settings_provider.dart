@@ -43,6 +43,8 @@ class SettingsNotifier extends _$SettingsNotifier {
         hour: 20,
         minute: 00,
       );
+    }else{
+      await _notificationNotifier.cancelAllNotifications();
     }
     state = state.copyWith(remainder: !state.remainder);
     await updateHiveBox();
