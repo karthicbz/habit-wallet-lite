@@ -4,11 +4,12 @@ import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/hive/hive_registrar.g.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
+import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initializing hive
   await Hive.initFlutter();
@@ -29,9 +30,12 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.greenAccent, brightness: (settings.darkMode)?Brightness.dark: Brightness.light,),
+        colorScheme: .fromSeed(
+          seedColor: Colors.greenAccent,
+          brightness: (settings.darkMode) ? Brightness.dark : Brightness.light,
+        ),
       ),
-      home:  LoginPage(),
+      home: (settings.autoLogin) ? NavigationPage() : LoginPage(),
     );
   }
 }

@@ -8,19 +8,20 @@ part 'settings_provider.g.dart';
 
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
-  late Box<SettingsModel> settings;
+  late Box<SettingsModel> _settings;
 
   @override
   SettingsModel build() {
-    settings = Hive.box(settingsBox);
-    if (settings.isEmpty) {
+    _settings = Hive.box(settingsBox);
+    if (_settings.isEmpty) {
       return SettingsModel(
         darkMode: false,
         language: Language.english,
         remainder: false,
+        autoLogin: false,
       );
     } else {
-      return settings.values.first;
+      return _settings.values.first;
     }
   }
 
@@ -34,13 +35,19 @@ class SettingsNotifier extends _$SettingsNotifier {
     await updateHiveBox();
   }
 
+  void updateAutoLogin() async{
+    state = state.copyWith(autoLogin: !state.autoLogin);
+    await updateHiveBox();
+  }
+
   Future<void> updateHiveBox() async{
-    await settings.clear();
-    await settings.add(
+    await _settings.clear();
+    await _settings.add(
       SettingsModel(
         darkMode: state.darkMode,
         language: Language.english,
         remainder: state.remainder,
+        autoLogin: state.autoLogin,
       ),
     );
   }
