@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_wallet_lite/data/constants/app_constants.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
@@ -62,7 +63,9 @@ class SignupPage extends StatelessWidget {
                     } else if (pinController.text.length != 4 ||
                         pinConfirmController.text.length != 4) {
                       showScaffoldMessage("PIN must be 4 digit", context);
-                    } else {}
+                    } else if(!emailRegex.hasMatch(emailController.text)){
+                      showScaffoldMessage("Email id is not valid", context);
+                    }else{}
                   },
                 ),
                 SizedBox(height: 10),
