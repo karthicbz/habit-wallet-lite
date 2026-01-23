@@ -3,6 +3,7 @@ import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
+import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
 class SignupPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -53,7 +54,17 @@ class SignupPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 300),
-                CustomElevatedButton(buttonText: signupText),
+                CustomElevatedButton(
+                  buttonText: signupText,
+                  buttonAction: () {
+                    if (pinController.text != pinConfirmController.text) {
+                      showScaffoldMessage("PIN doesn't match", context);
+                    } else if (pinController.text.length != 4 ||
+                        pinConfirmController.text.length != 4) {
+                      showScaffoldMessage("PIN must be 4 digit", context);
+                    } else {}
+                  },
+                ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +76,10 @@ class SignupPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
-                    CustomTextButton(buttonText: loginText, buttonAction: ()=>Navigator.pop(context))
+                    CustomTextButton(
+                      buttonText: loginText,
+                      buttonAction: () => Navigator.pop(context),
+                    ),
                   ],
                 ),
               ],
