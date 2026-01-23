@@ -1,11 +1,6 @@
 class SecureAuthModel {
-  final String email;
-  final String pin;
-
-  const SecureAuthModel({
-    required this.email,
-    required this.pin,
-  });
+  final String? email;
+  final String? pin;
 
   SecureAuthModel copyWith({
     String? email,
@@ -16,4 +11,9 @@ class SecureAuthModel {
       pin: pin ?? this.pin,
     );
   }
+
+  const SecureAuthModel({
+    required this.email,
+    required this.pin,
+  });
 }
