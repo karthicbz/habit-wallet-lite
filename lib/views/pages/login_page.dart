@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/providers/secure_auth_provider.dart';
 import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
 import 'package:habit_wallet_lite/views/pages/signup_page.dart';
+import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
+import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
 import '../widgets/custom_textfield.dart';
 
-class LoginPage extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController pinController = TextEditingController();
+class LoginPage extends ConsumerWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
 
   LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    SecureAuthNotifier secureAuthNotifier = ref.read(
+      secureAuthProvider.notifier,
+    );
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -80,27 +88,46 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NavigationPage()),
-                  ),
-                  style: ButtonStyle(
-                    elevation: WidgetStatePropertyAll(0),
-                    backgroundColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      loginText,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                  ),
+                // ElevatedButton(
+                //   onPressed: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => NavigationPage()),
+                //   ),
+                //   style: ButtonStyle(
+                //     elevation: WidgetStatePropertyAll(0),
+                //     backgroundColor: WidgetStatePropertyAll(
+                //       Theme.of(context).colorScheme.primary,
+                //     ),
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(vertical: 16.0),
+                //     child: Text(
+                //       loginText,
+                //       style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                //         fontWeight: FontWeight.w700,
+                //         color: Theme.of(context).colorScheme.onPrimary,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                CustomElevatedButton(
+                  buttonText: loginText,
+                  buttonAction: () async {
+                    bool isValidUser = await secureAuthNotifier.validateLogin(
+                      emailController.text,
+                      pinController.text,
+                    );
+                    if (context.mounted) {
+                      (isValidUser)
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NavigationPage(),
+                              ),
+                            )
+                          : showScaffoldMessage("Invalid Email/PIN", context);
+                    }
+                  },
                 ),
                 SizedBox(height: 250),
                 // Card(

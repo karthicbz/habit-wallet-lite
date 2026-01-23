@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:habit_wallet_lite/data/constants/app_constants.dart';
 import 'package:habit_wallet_lite/data/models/secure_auth_model.dart';
@@ -20,8 +21,12 @@ class SecureAuthNotifier extends _$SecureAuthNotifier {
   }
 
   Future<void> saveCredentials(String email, String pin) async {
-    await _storage.write(key: emailKey, value: email);
-    await _storage.write(key: pinKey, value: pin);
+    try {
+      await _storage.write(key: emailKey, value: email);
+      await _storage.write(key: pinKey, value: pin);
+    }on PlatformException catch(e){
+      print(e.message);
+    }
   }
 
   Future<bool> validateLogin(String email, String pin) async {
