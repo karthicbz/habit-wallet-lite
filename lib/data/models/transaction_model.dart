@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:hive_ce_flutter/adapters.dart';
+import 'package:uuid/uuid.dart';
 
 enum Transaction { income, expense }
 
@@ -15,50 +16,57 @@ enum Category {
 }
 
 class TransactionModel extends HiveObject {
-  final Transaction transaction;
+  final String id;
+  final String remoteId;
+
+  final String transactionType;
   final Category category;
   final double amount;
-  final DateTime date;
+  final DateTime transactionTime;
+
   final String notes;
   final List<Uint8List> files;
-  final String remoteId;
+
   final bool isEditedLocally;
   final DateTime updatedAt;
   final DateTime syncedAt;
 
   TransactionModel({
-    required this.transaction,
+    required this.id,
+    required this.remoteId,
+    required this.transactionType,
     required this.category,
     required this.amount,
-    required this.date,
+    required this.transactionTime,
     required this.notes,
     required this.files,
-    required this.remoteId,
     required this.isEditedLocally,
     required this.updatedAt,
     required this.syncedAt,
   });
 
   TransactionModel copyWith({
-    Transaction? transaction,
+    String? id,
+    String? remoteId,
+    String? transactionType,
     Category? category,
     double? amount,
-    DateTime? date,
+    DateTime? transactionTime,
     String? notes,
     List<Uint8List>? files,
-    String? remoteId,
     bool? isEditedLocally,
     DateTime? updatedAt,
     DateTime? syncedAt,
   }) {
     return TransactionModel(
-      transaction: transaction ?? this.transaction,
+      id: id ?? this.id,
+      remoteId: remoteId ?? this.remoteId,
+      transactionType: transactionType ?? this.transactionType,
       category: category ?? this.category,
       amount: amount ?? this.amount,
-      date: date ?? this.date,
+      transactionTime: transactionTime ?? this.transactionTime,
       notes: notes ?? this.notes,
       files: files ?? this.files,
-      remoteId: remoteId ?? this.remoteId,
       isEditedLocally: isEditedLocally ?? this.isEditedLocally,
       updatedAt: updatedAt ?? this.updatedAt,
       syncedAt: syncedAt ?? this.syncedAt,
