@@ -5,8 +5,13 @@ class OverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Overview Page"),
+    return Scaffold(
+      body: SafeArea(child: SingleChildScrollView(
+        child: Padding(padding: EdgeInsets.all(12), child: Column(
+          children: [],
+        ),),
+      )),
+      floatingActionButton: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add),),
     );
   }
 }

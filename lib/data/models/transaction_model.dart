@@ -21,6 +21,10 @@ class TransactionModel extends HiveObject {
   final DateTime date;
   final String notes;
   final List<Uint8List> files;
+  final String remoteId;
+  final bool isEditedLocally;
+  final DateTime updatedAt;
+  final DateTime syncedAt;
 
   TransactionModel({
     required this.transaction,
@@ -29,6 +33,10 @@ class TransactionModel extends HiveObject {
     required this.date,
     required this.notes,
     required this.files,
+    required this.remoteId,
+    required this.isEditedLocally,
+    required this.updatedAt,
+    required this.syncedAt,
   });
 
   TransactionModel copyWith({
@@ -38,6 +46,10 @@ class TransactionModel extends HiveObject {
     DateTime? date,
     String? notes,
     List<Uint8List>? files,
+    String? remoteId,
+    bool? isEditedLocally,
+    DateTime? updatedAt,
+    DateTime? syncedAt,
   }) {
     return TransactionModel(
       transaction: transaction ?? this.transaction,
@@ -46,6 +58,10 @@ class TransactionModel extends HiveObject {
       date: date ?? this.date,
       notes: notes ?? this.notes,
       files: files ?? this.files,
+      remoteId: remoteId ?? this.remoteId,
+      isEditedLocally: isEditedLocally ?? this.isEditedLocally,
+      updatedAt: updatedAt ?? this.updatedAt,
+      syncedAt: syncedAt ?? this.syncedAt,
     );
   }
 }
