@@ -12,7 +12,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationNotifier().initializeNotification();
+  await NotificationNotifier().initializeNotification();
   //initializing hive
   await Hive.initFlutter();
   //registering hive adapters
@@ -38,7 +38,9 @@ class MyApp extends ConsumerWidget {
           brightness: (settings.darkMode) ? Brightness.dark : Brightness.light,
         ),
       ),
-      home: (settingsNotifier.isAutoLoginEnabled()) ? NavigationPage() : LoginPage(),
+      home: (settingsNotifier.isAutoLoginEnabled())
+          ? NavigationPage()
+          : LoginPage(),
     );
   }
 }

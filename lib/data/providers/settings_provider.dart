@@ -29,28 +29,35 @@ class SettingsNotifier extends _$SettingsNotifier {
     }
   }
 
-  void updateDarkMode() async{
+  void updateDarkMode() async {
     state = state.copyWith(darkMode: !state.darkMode);
     await updateHiveBox();
   }
 
-  void updateRemainder() async{
+  void updateRemainder() async {
     _notificationNotifier.showNotificationPermission();
-    _notificationNotifier.showNotification(title: "Title", body: "Body");
+    if (!state.remainder) {
+      await _notificationNotifier.scheduleNotification(
+        title: "Daily Expense Remainder.",
+        body: "You haven’t added any expenses today.",
+        hour: 20,
+        minute: 00,
+      );
+    }
     state = state.copyWith(remainder: !state.remainder);
     await updateHiveBox();
   }
 
-  void updateAutoLogin() async{
+  void updateAutoLogin() async {
     state = state.copyWith(autoLogin: !state.autoLogin);
     await updateHiveBox();
   }
 
-  bool isAutoLoginEnabled(){
+  bool isAutoLoginEnabled() {
     return state.autoLogin;
   }
 
-  Future<void> updateHiveBox() async{
+  Future<void> updateHiveBox() async {
     await _settings.clear();
     await _settings.add(
       SettingsModel(
