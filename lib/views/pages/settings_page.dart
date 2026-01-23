@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
+import 'package:habit_wallet_lite/views/pages/login_page.dart';
+import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -106,24 +108,16 @@ class SettingsPage extends ConsumerWidget {
                   ],
                 ),
                 SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    elevation: WidgetStatePropertyAll(0),
-                    backgroundColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                    padding: WidgetStatePropertyAll(
-                      EdgeInsets.symmetric(vertical: 16),
-                    ),
-                  ),
-                  child: Text(
-                    logoutText,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.onPrimary
-                    ),
-                  ),
+
+                CustomElevatedButton(
+                  buttonText: logoutText,
+                  buttonAction: () {
+                    settingsNotifier.updateAutoLogin();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -160,12 +154,17 @@ class SettingsList extends StatelessWidget {
     return Material(
       child: ListTile(
         tileColor: Theme.of(context).listTileTheme.tileColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(14)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(14),
+        ),
         leading: Icon(listIcon),
         title: Text(listTitle),
         subtitle: Text(listSubtitle),
         trailing: (isSwitch ?? false)
-            ? Switch(value: switchValue ?? false, onChanged: (_) => switchFunc!())
+            ? Switch(
+                value: switchValue ?? false,
+                onChanged: (_) => switchFunc!(),
+              )
             : (isButton ?? false)
             ? OutlinedButton(onPressed: () {}, child: Text("Sync"))
             : Icon(Icons.arrow_forward_ios, size: 16),

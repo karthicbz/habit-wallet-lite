@@ -27,6 +27,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SettingsModel settings = ref.watch(settingsProvider);
+    SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -35,7 +36,7 @@ class MyApp extends ConsumerWidget {
           brightness: (settings.darkMode) ? Brightness.dark : Brightness.light,
         ),
       ),
-      home: (settings.autoLogin) ? NavigationPage() : LoginPage(),
+      home: (settingsNotifier.isAutoLoginEnabled()) ? NavigationPage() : LoginPage(),
     );
   }
 }

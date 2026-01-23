@@ -40,6 +40,10 @@ class SettingsNotifier extends _$SettingsNotifier {
     await updateHiveBox();
   }
 
+  bool isAutoLoginEnabled(){
+    return state.autoLogin;
+  }
+
   Future<void> updateHiveBox() async{
     await _settings.clear();
     await _settings.add(
