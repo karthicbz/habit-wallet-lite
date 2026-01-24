@@ -4,6 +4,7 @@ import 'package:habit_wallet_lite/data/providers/navigation_index_provider.dart'
 import 'package:habit_wallet_lite/views/pages/expenses_page.dart';
 import 'package:habit_wallet_lite/views/pages/overview_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
+import 'package:habit_wallet_lite/views/pages/transaction_page.dart';
 
 class NavigationPage extends ConsumerWidget {
   const NavigationPage({super.key});
@@ -33,7 +34,7 @@ class NavigationPage extends ConsumerWidget {
 
     List<Widget> pages = [
       OverviewPage(),
-      ExpensesPage(),
+      TransactionPage(),
       SettingsPage()
     ];
 

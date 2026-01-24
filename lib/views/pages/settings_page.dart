@@ -22,7 +22,7 @@ class SettingsPage extends ConsumerWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(12),
             child: Column(
               spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.stretch,

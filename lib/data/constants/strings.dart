@@ -40,4 +40,5 @@ final String dateText = "Date";
 final String notesText = "Notes";
 final String addAttachmentText = "Add Attachment";
 final String uploadReceiptText = "Upload receipt or image";
-
+//transaction page
+final String transactionTitle = "Transactions";
