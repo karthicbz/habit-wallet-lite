@@ -67,12 +67,26 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                               ),
                             ],
                           ),
-                          title: Text(
-                            transactionListHelper
-                                    .transactionModel[index]
-                                    .category
-                                    ?.name ??
-                                "Other",
+                          title: Row(
+                            spacing: 4,
+                            children: [
+                              Text(
+                                transactionListHelper
+                                        .transactionModel[index]
+                                        .category
+                                        ?.name ??
+                                    "Other",
+                              ),
+                              (transactionListHelper
+                                          .transactionModel[index]
+                                          .isEditedLocally ??
+                                      false)
+                                  ? Badge(
+                                      label: Text("Edited Locally"),
+                                      backgroundColor: Colors.yellow[200],
+                                    )
+                                  : SizedBox.shrink(),
+                            ],
                           ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
