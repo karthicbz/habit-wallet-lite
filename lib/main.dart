@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
+import 'package:habit_wallet_lite/data/models/sync_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/notification_provider.dart';
@@ -26,6 +27,7 @@ void main() async {
   await Hive.openBox<TransactionModel>(transactionBox);
   await Hive.openBox<bool>(transactionStatusBox);
   await Hive.openBox<TransactionCategoryModel>(transactionCategoryBox);
+  await Hive.openBox<SyncModel>(syncBox);
 
   runApp(ProviderScope(child: MyApp()));
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
+import 'package:habit_wallet_lite/data/providers/sync_provider.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 
@@ -13,6 +14,8 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     SettingsModel settingsModel = ref.watch(settingsProvider);
     SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
+
+    SyncNotifier syncNotifier = ref.read(syncProvider.notifier);
 
     return Scaffold(
       // appBar: AppBar(
@@ -85,6 +88,7 @@ class SettingsPage extends ConsumerWidget {
                       listSubtitle: "Last Synced 5m ago",
                       listIcon: Icons.sync,
                       isButton: true,
+                      buttonFunc: ()=>syncNotifier.syncTransaction(),
                     ),
                   ],
                 ),
@@ -136,6 +140,7 @@ class SettingsList extends StatelessWidget {
   final bool? isButton;
   final bool? switchValue;
   final Function? switchFunc;
+  final Function? buttonFunc;
 
   const SettingsList({
     super.key,
@@ -146,6 +151,7 @@ class SettingsList extends StatelessWidget {
     this.isButton,
     this.switchValue,
     this.switchFunc,
+    this.buttonFunc,
   });
 
   //get the switch value and switch and update the state
@@ -166,7 +172,7 @@ class SettingsList extends StatelessWidget {
                 onChanged: (_) => switchFunc!(),
               )
             : (isButton ?? false)
-            ? OutlinedButton(onPressed: () {}, child: Text("Sync"))
+            ? OutlinedButton(onPressed: ()=>buttonFunc!(), child: Text("Sync"))
             : Icon(Icons.arrow_forward_ios, size: 16),
       ),
     );
