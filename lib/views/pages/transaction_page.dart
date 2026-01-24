@@ -19,20 +19,18 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
   @override
   void initState() {
     super.initState();
-    final _transactionListNotifier = ref.read(transactionListProvider.notifier);
+    final transactionListNotifier = ref.read(transactionListProvider.notifier);
     Future.delayed(
       Duration.zero,
-      () => _transactionListNotifier.loadJsonFromFile(),
+      () async => await transactionListNotifier.loadJsonFromFile(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Box<TransactionModel> _transactions = Hive.box(transactionBox);
-    List<TransactionModel> _transactionList = _transactions.values.toList();
-
-    // List<TransactionModel> _transactionList = ref.watch(transactionListProvider);
-    print(_transactionList.first.amount);
+    TransactionListHelper transactionListHelper = ref.watch(
+      transactionListProvider,
+    );
 
     return Scaffold(
       body: SafeArea(
@@ -45,12 +43,13 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                 transactionTitle,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
-              (_transactionList.isEmpty)
+              (transactionListHelper.isLoading)
                   ? LinearProgressIndicator()
                   : Expanded(
                       child: ListView.builder(
                         addAutomaticKeepAlives: true,
-                        itemCount: _transactionList.length,
+                        itemCount:
+                            transactionListHelper.transactionModel.length,
                         itemBuilder: (context, index) => ListTile(
                           isThreeLine: true,
 
@@ -59,7 +58,9 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             children: [
                               CircleAvatar(
                                 child:
-                                    (_transactionList[index].transactionType ==
+                                    (transactionListHelper
+                                            .transactionModel[index]
+                                            .transactionType ==
                                         Transaction.income)
                                     ? Icon(Icons.arrow_forward_outlined)
                                     : Icon(Icons.arrow_back),
@@ -67,21 +68,35 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             ],
                           ),
                           title: Text(
-                            _transactionList[index].category?.name ?? "Other",
+                            transactionListHelper
+                                    .transactionModel[index]
+                                    .category
+                                    ?.name ??
+                                "Other",
                           ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (_transactionList[index].notes != null &&
-                                        _transactionList[index].notes!.isEmpty)
+                                (transactionListHelper
+                                                .transactionModel[index]
+                                                .notes !=
+                                            null &&
+                                        transactionListHelper
+                                            .transactionModel[index]
+                                            .notes!
+                                            .isEmpty)
                                     ? "No note found"
-                                    : _transactionList[index].notes ??
+                                    : transactionListHelper
+                                              .transactionModel[index]
+                                              .notes ??
                                           "No notes found.",
                               ),
                               Text(
                                 DateFormat('MMM dd, yyyy').format(
-                                  _transactionList[index].transactionDate!,
+                                  transactionListHelper
+                                      .transactionModel[index]
+                                      .transactionDate!,
                                 ),
                               ),
                             ],
@@ -90,7 +105,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "${(_transactionList[index].transactionType == Transaction.income) ? "+" : "-"}${_transactionList[index].amount}",
+                                "${(transactionListHelper.transactionModel[index].transactionType == Transaction.income) ? "+" : "-"}${transactionListHelper.transactionModel[index].amount}",
                                 style: Theme.of(context).textTheme.titleMedium,
                                 overflow: TextOverflow.ellipsis,
                               ),

@@ -10,21 +10,61 @@ import '../constants/hive_boxes.dart';
 
 part 'transaction_list_provider.g.dart';
 
+class TransactionListHelper {
+  final List<TransactionModel> transactionModel;
+  final bool isLoading;
+  final List<TransactionModel> dummyTransactionModel;
+
+  const TransactionListHelper({
+    required this.transactionModel,
+    required this.isLoading,
+    required this.dummyTransactionModel,
+  });
+
+  TransactionListHelper copyWith({
+    List<TransactionModel>? transactionModel,
+    bool? isLoading,
+    List<TransactionModel>? dummyTransactionModel,
+  }) {
+    return TransactionListHelper(
+      transactionModel: transactionModel ?? this.transactionModel,
+      isLoading: isLoading ?? this.isLoading,
+      dummyTransactionModel:
+          dummyTransactionModel ?? this.dummyTransactionModel,
+    );
+  }
+}
+
 @riverpod
 class TransactionListNotifier extends _$TransactionListNotifier {
   late Box<bool> _transactionLoadStatus;
   late Box<TransactionModel> _transactionModel;
 
   @override
-  List<TransactionModel> build() {
+  TransactionListHelper build() {
     _transactionLoadStatus = Hive.box(transactionStatusBox);
     _transactionModel = Hive.box(transactionBox);
+    // // loadJsonFromFile();
+    // return [];
     // loadJsonFromFile();
-    return [];
+    if (_transactionModel.isNotEmpty) {
+      return TransactionListHelper(
+        transactionModel: [..._transactionModel.values],
+        dummyTransactionModel: [..._transactionModel.values],
+        isLoading: false,
+      );
+    } else {
+      return TransactionListHelper(
+        transactionModel: [],
+        isLoading: false,
+        dummyTransactionModel: [],
+      );
+    }
   }
 
-  void loadJsonFromFile() async {
+  Future<void> loadJsonFromFile() async {
     // print("transactionStatus: ${transactionLoadStatus.values}");
+    state = state.copyWith(isLoading: true);
     if (_transactionLoadStatus.values.isEmpty) {
       _transactionLoadStatus.put("jsonLoaded", false);
     }
@@ -34,11 +74,11 @@ class TransactionListNotifier extends _$TransactionListNotifier {
       );
       final data = jsonDecode(jsonString);
       print("data: $data");
-      // List<TransactionModel> transactionModel = [];
+      List<TransactionModel> transactionModel = [];
       List<dynamic> transactions =
           data["BARB0KIMXXX"][0]["decrypted_data"]["Account"]["Transactions"]["Transaction"];
       for (var t in transactions) {
-        _transactionModel.add(
+        transactionModel.add(
           TransactionModel(
             id: Uuid().v1(),
             remoteId: t["narration"],
@@ -52,7 +92,7 @@ class TransactionListNotifier extends _$TransactionListNotifier {
             files: [],
             isEditedLocally: false,
             updatedAt: DateTime.now(),
-            syncedAt: null
+            syncedAt: null,
           ),
         );
       }
@@ -60,6 +100,12 @@ class TransactionListNotifier extends _$TransactionListNotifier {
       // print(transactionModel[0].amount);
       // state = transactionModel;
       _transactionLoadStatus.put("jsonLoaded", true);
+      _transactionModel.addAll(transactionModel);
+      state = state.copyWith(
+        transactionModel: transactionModel,
+        dummyTransactionModel: transactionModel,
+      );
     }
+    state = state.copyWith(isLoading: false);
   }
 }
