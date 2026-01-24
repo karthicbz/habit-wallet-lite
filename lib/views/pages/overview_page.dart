@@ -137,7 +137,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                                     ),
                                   ),
                                   Text(
-                                    transactionCategory[index].spent.toString(),
+                                    "₹${transactionCategory[index].spent.toString()}",
                                   ),
                                 ],
                               ),
@@ -147,19 +147,21 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                                 children: [
                                   LinearProgressIndicator(
                                     value:
-                                    (transactionCategory[index].limit ==0)?0:((transactionCategory[index].spent /
-                                                transactionCategory[index]
-                                                    .limit) *
-                                            100) /
-                                        100,
+                                        (transactionCategory[index].limit == 0)
+                                        ? 0
+                                        : ((transactionCategory[index].spent /
+                                                      transactionCategory[index]
+                                                          .limit) *
+                                                  100) /
+                                              100,
                                     minHeight: 10,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   Text(
                                     (transactionCategory[index].spent >=
                                             transactionCategory[index].limit)
-                                        ? "Exceeded by ${transactionCategory[index].spent - transactionCategory[index].limit}"
-                                        : "${((transactionCategory[index].spent / transactionCategory[index].limit)*100).toStringAsFixed(2)}% of ${transactionCategory[index].limit} budget",
+                                        ? "Exceeded by ₹${transactionCategory[index].spent - transactionCategory[index].limit}"
+                                        : "${((transactionCategory[index].spent / transactionCategory[index].limit) * 100).toStringAsFixed(2)}% of ₹${transactionCategory[index].limit} budget",
                                     // "40% of ${transactionCategory[index].limit}",
                                   ),
                                 ],
@@ -175,10 +177,13 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewTransactionPage()),
-        ),
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewTransactionPage()),
+          );
+          ref.invalidate(transactionListProvider);
+        },
         child: Icon(Icons.add),
       ),
     );

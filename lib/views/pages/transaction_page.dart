@@ -80,7 +80,10 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                                             .transactionModel[index]
                                             .transactionType ==
                                         Transaction.income)
-                                    ? Icon(Icons.arrow_forward_outlined, size: 20,)
+                                    ? Icon(
+                                        Icons.arrow_forward_outlined,
+                                        size: 20,
+                                      )
                                     : Icon(Icons.arrow_back),
                               ),
                             ],
@@ -147,7 +150,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "${(transactionListHelper.transactionModel[index].transactionType == Transaction.income) ? "+" : "-"}${transactionListHelper.transactionModel[index].amount}",
+                                "${(transactionListHelper.transactionModel[index].transactionType == Transaction.income) ? "+₹" : "-₹"}${transactionListHelper.transactionModel[index].amount}",
                                 style: Theme.of(context).textTheme.titleMedium,
                                 overflow: TextOverflow.ellipsis,
                               ),

@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                     ConsumerSegmentedButton(),
                   ],
                 ),
-                SizedBox(height: 16,),
+                SizedBox(height: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -100,26 +100,24 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               },
                         ),
-                        SizedBox(
-                          width: 150,
-                          child: Text(
-                            AppLocalizations.of(context)!.rememberMeText,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                        Text(
+                          AppLocalizations.of(context)!.rememberMeText,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
                         ),
+
                         Spacer(),
-                        TextButton(
-                          onPressed: () {},
-                          child: SizedBox(
-                            width: 100,
-                            child: Text(
-                              AppLocalizations.of(context)!.forgotPinText,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
+                        // TextButton(
+                        //   onPressed: () {},
+                        //   child: SizedBox(
+                        //     width: 100,
+                        //     child: Text(
+                        //       AppLocalizations.of(context)!.forgotPinText,
+                        //       style: Theme.of(context).textTheme.bodyMedium,
+                        //       overflow: TextOverflow.ellipsis,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

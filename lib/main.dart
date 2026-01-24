@@ -36,27 +36,34 @@ void main() async {
   await Hive.openBox<SyncModel>(syncBox);
   await Hive.openBox<AppLocaleModel>(localeBox);
 
-  runApp(ProviderScope(child: MyApp()));
+  //checking for auto login
+  Box<SettingsModel> settings = Hive.box<SettingsModel>(settingsBox);
+  Widget initialHome = LoginPage();
+  if (settings.isNotEmpty) {
+    if (settings.values.first.autoLogin) {
+      initialHome = NavigationPage();
+    }
+  }
+
+  runApp(ProviderScope(child: MyApp(initialHome: initialHome)));
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  final Widget initialHome;
+  const MyApp({super.key, required this.initialHome});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SettingsModel settings = ref.watch(settingsProvider);
-    SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
+    // SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
 
     // AppLocaleModel appLocaleModel = ref.watch();
     AppLocaleModel appLocaleModel = ref.watch(localeProvider);
     return MaterialApp(
       locale: Locale(appLocaleModel.appLocale.name),
-      supportedLocales: [
-        Locale(AppLocale.en.name),
-        Locale(AppLocale.ta.name)
-      ],
-      localizationsDelegates: const[
+      supportedLocales: [Locale(AppLocale.en.name), Locale(AppLocale.ta.name)],
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -64,14 +71,12 @@ class MyApp extends ConsumerWidget {
       ],
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(
+        colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.greenAccent,
           brightness: (settings.darkMode) ? Brightness.dark : Brightness.light,
         ),
       ),
-      home: (settingsNotifier.isAutoLoginEnabled())
-          ? NavigationPage()
-          : LoginPage(),
+      home: initialHome,
     );
   }
 }
