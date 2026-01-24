@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/models/chart_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/chart_provider.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_category_provider.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class OverviewPage extends ConsumerStatefulWidget {
   const OverviewPage({super.key});
@@ -21,7 +25,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
     super.initState();
     final chartNotifier = ref.read(chartProvider.notifier);
     final transactionListNotifier = ref.read(transactionListProvider.notifier);
-    Future.delayed(Duration.zero, () async{
+    Future.delayed(Duration.zero, () async {
       await transactionListNotifier.loadJsonFromFile();
       chartNotifier.getChartData();
     });
@@ -43,9 +47,31 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
               Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   // ChartNotifier chartNotifier = ref.read(chartProvider.notifier);
+                  List<ChartModel> chartModel = ref.watch(chartProvider);
 
                   return SizedBox(
                     height: MediaQuery.of(context).size.height / 2.5,
+                    child: SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
+                      series: <CartesianSeries>[
+                        ColumnSeries<ChartModel, String>(
+                          dataSource: chartModel,
+                          xValueMapper: (m, _) =>
+                              DateFormat('MMM yyyy').format(m.month!),
+                          yValueMapper: (m, _) => m.debit,
+                          name: 'Debit',
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        ColumnSeries<ChartModel, String>(
+                          dataSource: chartModel,
+                          xValueMapper: (m, _) =>
+                              DateFormat('MMM yyyy').format(m.month!),
+                          yValueMapper: (m, _) => m.credit,
+                          name: 'Credit',
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

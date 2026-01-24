@@ -56,7 +56,8 @@ class ChartNotifier extends _$ChartNotifier {
 
   void getChartData(){
     List<ChartModel> data = toSortedList(monthlyDebitCredit());
-    print(data);
+    // print(data);
+    state = data;
   }
 
 }
