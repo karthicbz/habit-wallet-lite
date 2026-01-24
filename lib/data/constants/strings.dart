@@ -46,3 +46,11 @@ final String transactionTitle = "Transactions";
 //dashboard page
 final String dashboardText = "Dashboard";
 final String categoryBreakDownText = "Category Breakdown";
+final String foodAndBeverageText = "Food and Groceries";
+final String transportText = "Transport";
+final String shoppingText = "Shopping";
+final String utilitiesText = "Utilities";
+final String medicineText = "Medicine";
+final String educationText = "Education";
+final String othersText = "Others";
+

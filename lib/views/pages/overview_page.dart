@@ -31,6 +31,25 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
     });
   }
 
+  String convertEnumToString(Category category) {
+    switch (category) {
+      case Category.education:
+        return educationText;
+      case Category.foodAndGroceries:
+        return foodAndBeverageText;
+      case Category.transport:
+        return transportText;
+      case Category.shopping:
+        return shoppingText;
+      case Category.utilities:
+        return utilitiesText;
+      case Category.medicine:
+        return medicineText;
+      case Category.others:
+        return othersText;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +132,12 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(transactionCategory[index].category.name),
+                            // Text(transactionCategory[index].category.name),
+                            Text(
+                              convertEnumToString(
+                                transactionCategory[index].category,
+                              ),
+                            ),
                             Text(transactionCategory[index].spent.toString()),
                           ],
                         ),
