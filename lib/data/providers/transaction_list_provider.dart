@@ -52,7 +52,7 @@ class TransactionListNotifier extends _$TransactionListNotifier {
         ..sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
       return TransactionListHelper(
         transactionModel: [...sorted],
-        dummyTransactionModel: [...sorted],
+        dummyTransactionModel: [..._transactionModel.values],
         isLoading: false,
       );
     } else {

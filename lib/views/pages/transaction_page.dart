@@ -52,16 +52,20 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                         itemCount:
                             transactionListHelper.transactionModel.length,
                         itemBuilder: (context, index) => ListTile(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewTransactionPage(
-                                id: transactionListHelper
-                                    .transactionModel[index]
-                                    .id,
+                          onTap: () async{
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NewTransactionPage(
+                                  id: transactionListHelper
+                                      .transactionModel[index]
+                                      .id,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                            //refresh the transaction list on return
+                            ref.invalidate(transactionListProvider);
+                          },
                           isThreeLine: true,
 
                           leading: Column(
