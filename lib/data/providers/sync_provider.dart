@@ -52,15 +52,11 @@ class SyncNotifier extends _$SyncNotifier {
     List<TransactionModel> newTransactions = [];
     for (int i = 0; i < _transactionModel.length; i++) {
       TransactionModel transaction = _transactionModel.values.toList()[i];
-      if (transaction.isEditedLocally == true) {
-        _transactionModel.deleteAt(i);
-        newTransactions.add(transaction.copyWith(isEditedLocally: false));
-      } else {
-        _transactionModel.deleteAt(i);
-        newTransactions.add(transaction);
+      if(transaction.isEditedLocally == true) {
+        _transactionModel.putAt(i,
+            _transactionModel.values.toList()[i].copyWith(
+                isEditedLocally: false));
       }
     }
-    // _transactionModel.c;
-    await _transactionModel.addAll([...newTransactions]);
   }
 }

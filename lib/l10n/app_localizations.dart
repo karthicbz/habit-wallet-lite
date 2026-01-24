@@ -424,6 +424,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edited Locally'**
   String get editedLocally;
+
+  /// No description provided for @lastSyncedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Synced'**
+  String get lastSyncedText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

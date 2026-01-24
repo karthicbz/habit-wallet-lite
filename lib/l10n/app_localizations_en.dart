@@ -172,4 +172,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editedLocally => 'Edited Locally';
+
+  @override
+  String get lastSyncedText => 'Last Synced';
 }

@@ -54,5 +54,6 @@
   "transactionText": "Transactions",
   "settingsText": "Settings",
   "noNotesFoundText": "No notes found",
-  "editedLocally": "Edited Locally"
+  "editedLocally": "Edited Locally",
+  "lastSyncedText": "Last Synced"
 }

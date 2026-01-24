@@ -172,4 +172,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get editedLocally => 'உள்ளூர் ரீதியாக திருத்தப்பட்டது';
+
+  @override
+  String get lastSyncedText => 'கடைசியாக ஒத்திசைக்கப்பட்டது';
 }

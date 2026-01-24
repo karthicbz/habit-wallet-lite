@@ -9,6 +9,7 @@ import 'package:habit_wallet_lite/data/models/sync_model.dart';
 import 'package:habit_wallet_lite/data/providers/locale_provider.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/data/providers/sync_provider.dart';
+import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
@@ -106,11 +107,12 @@ class SettingsPage extends ConsumerWidget {
                     SettingsList(
                       listTitle: AppLocalizations.of(context)!.syncTitle,
                       listSubtitle:
-                          "${AppLocalizations.of(context)!.dataSyncDisplayText} ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
+                          "${AppLocalizations.of(context)!.lastSyncedText} ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
                       listIcon: Icons.sync,
                       isButton: true,
                       buttonFunc: () async {
                         await syncNotifier.syncTransaction();
+                        ref.invalidate(transactionListProvider);
                         if (context.mounted) {
                           showScaffoldMessage(
                             "Transactions synced successfully!",

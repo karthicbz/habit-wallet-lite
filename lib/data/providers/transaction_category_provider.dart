@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
@@ -14,34 +12,69 @@ part 'transaction_category_provider.g.dart';
 @riverpod
 class TransactionCategoryNotifier extends _$TransactionCategoryNotifier {
   late Box<TransactionModel> _transactionModel;
+  late Box<TransactionCategoryModel> _tcModel;
 
   @override
   List<TransactionCategoryModel> build() {
     _transactionModel = Hive.box(transactionBox);
-    List<TransactionCategoryModel> transactionCategoryModel = [];
-    for (var c in Category.values) {
+    _tcModel = Hive.box(transactionCategoryBox);
+
+    _seedCategoriesIfEmpty();
+
+    final List<TransactionCategoryModel> result = [];
+
+    for (final c in Category.values) {
       double spent = 0.0;
-      for (var t in _transactionModel.values) {
-        // print("${t.category?.name} - ${c.name}");
-        if (t.category?.name == c.name) {
-          if (t.transactionType == Transaction.expense) {
-            spent += t.amount ?? 0.0;
-          }
+
+      for (final t in _transactionModel.values) {
+        if (
+        t.category?.name == c.name &&
+            t.transactionType == Transaction.expense
+        ) {
+          spent += t.amount ?? 0.0;
         }
       }
-      transactionCategoryModel.add(
-        TransactionCategoryModel(category: c, limit: 0, spent: spent),
+
+      final stored = _tcModel.values
+          .where((e) => e.category == c)
+          .cast<TransactionCategoryModel?>()
+          .firstOrNull;
+
+      result.add(
+        TransactionCategoryModel(
+          category: c,
+          limit: stored?.limit ?? 0.0,
+          spent: spent,
+        ),
       );
     }
-    return transactionCategoryModel;
+
+    return result;
+  }
+
+  void _seedCategoriesIfEmpty() {
+    if (_tcModel.isNotEmpty) return;
+
+    final initial = Category.values
+        .map(
+          (c) => TransactionCategoryModel(
+        category: c,
+        limit: 0.0,
+        spent: 0.0,
+      ),
+    )
+        .toList();
+
+    _tcModel.addAll(initial);
   }
 
   void updateSpent(Category c, BuildContext context) {
-    TextEditingController spentController = TextEditingController();
+    final TextEditingController spentController = TextEditingController();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Update Spent Limit"),
+        title: const Text("Update Spent Limit"),
         content: CustomTextField(
           textEditingController: spentController,
           label: "Spent Limit",
@@ -51,34 +84,32 @@ class TransactionCategoryNotifier extends _$TransactionCategoryNotifier {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
           ),
           TextButton(
             onPressed: () {
-              List<TransactionCategoryModel> newTCategoryModel = [];
-              for (int i = 0; i < state.length; i++) {
-                if (state[i].category == c) {
-                  newTCategoryModel.add(
+              final newLimit =
+                  double.tryParse(spentController.text) ?? 0.0;
+
+              for (int i = 0; i < _tcModel.length; i++) {
+                final tc = _tcModel.getAt(i);
+                if (tc?.category == c) {
+                  _tcModel.putAt(
+                    i,
                     TransactionCategoryModel(
                       category: c,
-                      limit: double.parse(spentController.text),
-                      spent: state[i].spent,
+                      limit: newLimit,
+                      spent: tc!.spent,
                     ),
                   );
-                } else {
-                  newTCategoryModel.add(
-                    TransactionCategoryModel(
-                      category: state[i].category,
-                      limit: state[i].limit,
-                      spent: state[i].spent,
-                    ),
-                  );
+                  break;
                 }
               }
-              state = newTCategoryModel;
+              state = build();
+
               CustomPageRoute(context: context).pop();
             },
-            child: Text("Update"),
+            child: const Text("Update"),
           ),
         ],
       ),

@@ -159,7 +159,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                                     (transactionCategory[index].spent >=
                                             transactionCategory[index].limit)
                                         ? "Exceeded by ${transactionCategory[index].spent - transactionCategory[index].limit}"
-                                        : "${transactionCategory[index].spent / transactionCategory[index].limit}% of ${transactionCategory[index].limit} budget",
+                                        : "${((transactionCategory[index].spent / transactionCategory[index].limit)*100).toStringAsFixed(2)}% of ${transactionCategory[index].limit} budget",
                                     // "40% of ${transactionCategory[index].limit}",
                                   ),
                                 ],

@@ -40,7 +40,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
         child: Padding(
           padding: EdgeInsets.all(12),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 AppLocalizations.of(context)!.transactionText,
@@ -54,6 +54,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                         itemCount:
                             transactionListHelper.transactionModel.length,
                         itemBuilder: (context, index) => ListTile(
+                          dense: true,
                           onTap: () async {
                             await Navigator.push(
                               context,
@@ -79,7 +80,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                                             .transactionModel[index]
                                             .transactionType ==
                                         Transaction.income)
-                                    ? Icon(Icons.arrow_forward_outlined)
+                                    ? Icon(Icons.arrow_forward_outlined, size: 20,)
                                     : Icon(Icons.arrow_back),
                               ),
                             ],
@@ -88,7 +89,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             spacing: 4,
                             children: [
                               SizedBox(
-                                width: 120,
+                                width: 100,
                                 child: Text(
                                   AppHelper().convertEnumToString(
                                     transactionListHelper
