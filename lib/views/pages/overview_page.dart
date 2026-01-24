@@ -3,11 +3,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
+import 'package:habit_wallet_lite/data/providers/chart_provider.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_category_provider.dart';
+import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
 
-class OverviewPage extends StatelessWidget {
+class OverviewPage extends ConsumerStatefulWidget {
   const OverviewPage({super.key});
+
+  @override
+  ConsumerState<OverviewPage> createState() => _OverviewPageState();
+}
+
+class _OverviewPageState extends ConsumerState<OverviewPage> {
+  @override
+  void initState() {
+    super.initState();
+    final chartNotifier = ref.read(chartProvider.notifier);
+    final transactionListNotifier = ref.read(transactionListProvider.notifier);
+    Future.delayed(Duration.zero, () async{
+      await transactionListNotifier.loadJsonFromFile();
+      chartNotifier.getChartData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +40,16 @@ class OverviewPage extends StatelessWidget {
                 dashboardText,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 2.5),
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  // ChartNotifier chartNotifier = ref.read(chartProvider.notifier);
+
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height / 2.5,
+                  );
+                },
+              ),
+
               Text(
                 categoryBreakDownText,
                 style: Theme.of(context).textTheme.titleLarge,
