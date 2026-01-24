@@ -7,6 +7,7 @@ import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/chart_provider.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_category_provider.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
+import 'package:habit_wallet_lite/l10n/app_localizations.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -96,7 +97,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
               ),
 
               Text(
-                categoryBreakDownText,
+                AppLocalizations.of(context)!.categoryBreakDownText,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Consumer(

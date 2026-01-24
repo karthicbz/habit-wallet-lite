@@ -4,3 +4,4 @@ const transactionBox = "transaction_box";
 const transactionStatusBox = "transaction_status_box";
 const transactionCategoryBox = "transaction_category_box";
 const syncBox = "sync_box";
+const localeBox = "locale_box";
