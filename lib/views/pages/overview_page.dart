@@ -53,17 +53,23 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height / 2.5,
                     child: SfCartesianChart(
+                      enableAxisAnimation: false,
                       primaryXAxis: CategoryAxis(),
                       series: <CartesianSeries>[
                         ColumnSeries<ChartModel, String>(
+                          animationDelay: 0,
+                          animationDuration: 0,
                           dataSource: chartModel,
                           xValueMapper: (m, _) =>
                               DateFormat('MMM yyyy').format(m.month!),
                           yValueMapper: (m, _) => m.debit,
                           name: 'Debit',
                           color: Theme.of(context).colorScheme.error,
+
                         ),
                         ColumnSeries<ChartModel, String>(
+                          animationDuration: 0,
+                          animationDelay: 0,
                           dataSource: chartModel,
                           xValueMapper: (m, _) =>
                               DateFormat('MMM yyyy').format(m.month!),
