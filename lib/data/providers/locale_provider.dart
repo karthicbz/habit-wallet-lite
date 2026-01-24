@@ -10,6 +10,7 @@ class LocaleNotifier extends _$LocaleNotifier {
   @override
   AppLocaleModel build(){
     _appLocaleModel = Hive.box(localeBox);
+    // print("AppLocaleBox: ${_appLocaleModel.values.first}");
     if(_appLocaleModel.isEmpty){
       return AppLocaleModel(appLocale: AppLocale.en);
     }else{
@@ -19,7 +20,7 @@ class LocaleNotifier extends _$LocaleNotifier {
 
   void changeLocale(AppLocale locale){
     state = state.copyWith(appLocale: locale);
-    _appLocaleModel.deleteAt(0);
+    _appLocaleModel.clear();
     _appLocaleModel.add(state);
   }
 }

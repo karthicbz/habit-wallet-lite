@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_wallet_lite/data/constants/app_constants.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/models/app_locale_model.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/models/sync_model.dart';
+import 'package:habit_wallet_lite/data/providers/locale_provider.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/data/providers/sync_provider.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
@@ -65,10 +69,20 @@ class SettingsPage extends ConsumerWidget {
                       languageTitleText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    SettingsList(
-                      listTitle: languageText,
-                      listSubtitle: "",
-                      listIcon: Icons.translate,
+                    Consumer(
+                      builder:
+                          (BuildContext context, WidgetRef ref, Widget? child) {
+                            AppLocaleModel applocaleModel = ref.watch(
+                              localeProvider,
+                            );
+                            return SettingsList(
+                              listTitle: languageText,
+                              listSubtitle:
+                                  "Language: ${(applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்"}",
+                              listIcon: Icons.translate,
+                              isSegmentedButton: true,
+                            );
+                          },
                     ),
                   ],
                 ),
@@ -95,8 +109,11 @@ class SettingsPage extends ConsumerWidget {
                       isButton: true,
                       buttonFunc: () async {
                         await syncNotifier.syncTransaction();
-                        if(context.mounted) {
-                          showScaffoldMessage("Transactions synced successfully!", context);
+                        if (context.mounted) {
+                          showScaffoldMessage(
+                            "Transactions synced successfully!",
+                            context,
+                          );
                         }
                       },
                       isLoading: syncModel.isSyncing,
@@ -152,6 +169,7 @@ class SettingsList extends StatelessWidget {
   final bool? switchValue;
   final Function? switchFunc;
   final Function? buttonFunc;
+  final bool? isSegmentedButton;
   final bool? isLoading;
 
   const SettingsList({
@@ -159,6 +177,7 @@ class SettingsList extends StatelessWidget {
     required this.listTitle,
     required this.listSubtitle,
     required this.listIcon,
+    this.isSegmentedButton,
     this.isSwitch,
     this.isButton,
     this.switchValue,
@@ -194,6 +213,28 @@ class SettingsList extends StatelessWidget {
             ? OutlinedButton(
                 onPressed: () => buttonFunc!(),
                 child: Text("Sync"),
+              )
+            : (isSegmentedButton ?? false)
+            ? Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  AppLocaleModel appLocaleModel = ref.watch(localeProvider);
+                  LocaleNotifier localeNotifier = ref.read(
+                    localeProvider.notifier,
+                  );
+                  return SegmentedButton(
+                    segments: <ButtonSegment<AppLocale>>[
+                      ButtonSegment(value: AppLocale.en, label: Text("EN")),
+                      ButtonSegment(value: AppLocale.ta, label: Text("அ")),
+                    ],
+                    selected: {appLocaleModel.appLocale},
+                    onSelectionChanged: (newSelection) {
+                      // print(newSelection);
+                      HapticFeedback.mediumImpact();
+                      // transactionNotifier.updateTransactionType(newSelection);
+                      localeNotifier.changeLocale(newSelection.first);
+                    },
+                  );
+                },
               )
             : Icon(Icons.arrow_forward_ios, size: 16),
       ),
