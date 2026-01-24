@@ -18,7 +18,9 @@ class SignupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    SecureAuthNotifier secureAuthModel = ref.read(secureAuthProvider.notifier);
+    SecureAuthNotifier secureAuthNotifier = ref.read(
+      secureAuthProvider.notifier,
+    );
 
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
@@ -60,28 +62,53 @@ class SignupPage extends ConsumerWidget {
                   ],
                 ),
                 SizedBox(height: 300),
-                CustomElevatedButton(
-                  buttonText: signupText,
-                  buttonAction: () async {
-                    if (pinController.text != pinConfirmController.text) {
-                      showScaffoldMessage("PIN doesn't match", context);
-                    } else if (pinController.text.length != 4 ||
-                        pinConfirmController.text.length != 4) {
-                      showScaffoldMessage("PIN must be 4 digit", context);
-                    } else if (!emailRegex.hasMatch(emailController.text)) {
-                      showScaffoldMessage("Email id is not valid", context);
-                    } else {
-                      await secureAuthModel.saveCredentials(
-                        emailController.text,
-                        pinController.text,
-                      );
+                Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                        SecureAuthModel secureAuthModel = ref.watch(
+                          secureAuthProvider,
+                        );
+                        return (secureAuthModel.isLoading ?? false)
+                            ? LinearProgressIndicator()
+                            : CustomElevatedButton(
+                                buttonText: signupText,
+                                buttonAction: () async {
+                                  if (pinController.text !=
+                                      pinConfirmController.text) {
+                                    showScaffoldMessage(
+                                      "PIN doesn't match",
+                                      context,
+                                    );
+                                  } else if (pinController.text.length != 4 ||
+                                      pinConfirmController.text.length != 4) {
+                                    showScaffoldMessage(
+                                      "PIN must be 4 digit",
+                                      context,
+                                    );
+                                  } else if (!emailRegex.hasMatch(
+                                    emailController.text,
+                                  )) {
+                                    showScaffoldMessage(
+                                      "Email id is not valid",
+                                      context,
+                                    );
+                                  } else {
+                                    await secureAuthNotifier.saveCredentials(
+                                      emailController.text,
+                                      pinController.text,
+                                    );
 
-                      if (context.mounted) {
-                        showScaffoldMessage("Sign Up Success!", context);
-                        Navigator.pop(context);
-                      }
-                    }
-                  },
+                                    if (context.mounted) {
+                                      showScaffoldMessage(
+                                        "Sign Up Success!",
+                                        context,
+                                      );
+                                      Navigator.pop(context);
+                                    }
+                                  }
+                                },
+                              );
+                      },
                 ),
                 SizedBox(height: 10),
                 Row(

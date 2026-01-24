@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/models/secure_auth_model.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/providers/secure_auth_provider.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
@@ -116,34 +117,40 @@ class _LoginPageState extends State<LoginPage> {
                         SecureAuthNotifier secureAuthNotifier = ref.read(
                           secureAuthProvider.notifier,
                         );
-                        return CustomElevatedButton(
-                          buttonText: loginText,
-                          buttonAction: () async {
-                            bool isValidUser = await secureAuthNotifier
-                                .validateLogin(
-                                  emailController.text,
-                                  pinController.text,
-                                );
-                            if (context.mounted) {
-                              if (isValidUser) {
-                                emailController.clear();
-                                pinController.clear();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NavigationPage(),
-                                  ),
-                                );
-                              } else {
-                                showScaffoldMessage(
-                                  "Invalid Email/PIN",
-                                  context,
-                                );
-                              }
-                              ;
-                            }
-                          },
+                        SecureAuthModel secureAuthModel = ref.watch(
+                          secureAuthProvider,
                         );
+                        return (secureAuthModel.isLoading ?? false)
+                            ? LinearProgressIndicator()
+                            : CustomElevatedButton(
+                                buttonText: loginText,
+                                buttonAction: () async {
+                                  bool isValidUser = await secureAuthNotifier
+                                      .validateLogin(
+                                        emailController.text,
+                                        pinController.text,
+                                      );
+                                  if (context.mounted) {
+                                    if (isValidUser) {
+                                      emailController.clear();
+                                      pinController.clear();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NavigationPage(),
+                                        ),
+                                      );
+                                    } else {
+                                      showScaffoldMessage(
+                                        "Invalid Email/PIN",
+                                        context,
+                                      );
+                                    }
+                                    ;
+                                  }
+                                },
+                              );
                       },
                 ),
                 SizedBox(height: 250),

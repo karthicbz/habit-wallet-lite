@@ -98,7 +98,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                                       false)
                                   ? Badge(
                                       label: Text("Edited Locally"),
-                                      backgroundColor: Colors.yellow[200],
+                                      backgroundColor: Colors.orange[300],
                                     )
                                   : SizedBox.shrink(),
                             ],

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
+import 'package:habit_wallet_lite/data/models/sync_model.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/data/providers/sync_provider.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
+import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -14,6 +16,8 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     SettingsModel settingsModel = ref.watch(settingsProvider);
     SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
+
+    SyncModel syncModel = ref.watch(syncProvider);
 
     SyncNotifier syncNotifier = ref.read(syncProvider.notifier);
 
@@ -85,10 +89,17 @@ class SettingsPage extends ConsumerWidget {
                     // ),
                     SettingsList(
                       listTitle: syncTitle,
-                      listSubtitle: "Last Synced 5m ago",
+                      listSubtitle:
+                          "Last Synced ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
                       listIcon: Icons.sync,
                       isButton: true,
-                      buttonFunc: ()=>syncNotifier.syncTransaction(),
+                      buttonFunc: () async {
+                        await syncNotifier.syncTransaction();
+                        if(context.mounted) {
+                          showScaffoldMessage("Transactions synced successfully!", context);
+                        }
+                      },
+                      isLoading: syncModel.isSyncing,
                     ),
                   ],
                 ),
@@ -141,6 +152,7 @@ class SettingsList extends StatelessWidget {
   final bool? switchValue;
   final Function? switchFunc;
   final Function? buttonFunc;
+  final bool? isLoading;
 
   const SettingsList({
     super.key,
@@ -152,6 +164,7 @@ class SettingsList extends StatelessWidget {
     this.switchValue,
     this.switchFunc,
     this.buttonFunc,
+    this.isLoading,
   });
 
   //get the switch value and switch and update the state
@@ -166,13 +179,22 @@ class SettingsList extends StatelessWidget {
         leading: Icon(listIcon),
         title: Text(listTitle),
         subtitle: Text(listSubtitle),
-        trailing: (isSwitch ?? false)
+        trailing: (isLoading ?? false)
+            ? SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(),
+              )
+            : (isSwitch ?? false)
             ? Switch(
                 value: switchValue ?? false,
                 onChanged: (_) => switchFunc!(),
               )
             : (isButton ?? false)
-            ? OutlinedButton(onPressed: ()=>buttonFunc!(), child: Text("Sync"))
+            ? OutlinedButton(
+                onPressed: () => buttonFunc!(),
+                child: Text("Sync"),
+              )
             : Icon(Icons.arrow_forward_ios, size: 16),
       ),
     );
