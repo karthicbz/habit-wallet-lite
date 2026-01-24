@@ -33,25 +33,6 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
     });
   }
 
-  // String convertEnumToString(Category category) {
-  //   switch (category) {
-  //     case Category.education:
-  //       return AppLocalizations.of(context)!.educationText;
-  //     case Category.foodAndGroceries:
-  //       return AppLocalizations.of(context)!.foodAndBeverageText;
-  //     case Category.transport:
-  //       return AppLocalizations.of(context)!.transportText;
-  //     case Category.shopping:
-  //       return AppLocalizations.of(context)!.shoppingText;
-  //     case Category.utilities:
-  //       return AppLocalizations.of(context)!.utilitiesText;
-  //     case Category.medicine:
-  //       return AppLocalizations.of(context)!.medicineText;
-  //     case Category.others:
-  //       return AppLocalizations.of(context)!.othersText;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +117,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                           children: [
                             // Text(transactionCategory[index].category.name),
                             SizedBox(
-                              width: 250,
+                              width: 150,
                               child: Text(
                                 AppHelper().convertEnumToString(
                                   transactionCategory[index].category,
@@ -150,7 +131,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 4,
+                          // spacing: 4,
                           children: [
                             LinearProgressIndicator(
                               value: 0.4,

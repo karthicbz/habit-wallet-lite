@@ -104,15 +104,19 @@ class _LoginPageState extends State<LoginPage> {
                           width: 150,
                           child: Text(
                             AppLocalizations.of(context)!.rememberMeText,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Spacer(),
-                        SizedBox(
-                          width: 150,
-                          child: TextButton(
-                            onPressed: () {},
+                        TextButton(
+                          onPressed: () {},
+                          child: SizedBox(
+                            width: 100,
                             child: Text(
                               AppLocalizations.of(context)!.forgotPinText,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),

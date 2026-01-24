@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +26,7 @@ class TransactionModel extends HiveObject {
   final DateTime? transactionDate;
 
   final String? notes;
-  final List<Uint8List>? files;
+  final List<PlatformFile>? files;
 
   final bool? isEditedLocally;
   final DateTime? updatedAt;
@@ -53,7 +54,7 @@ class TransactionModel extends HiveObject {
     double? amount,
     DateTime? transactionDate,
     String? notes,
-    List<Uint8List>? files,
+    List<PlatformFile>? files,
     bool? isEditedLocally,
     DateTime? updatedAt,
     DateTime? syncedAt,
