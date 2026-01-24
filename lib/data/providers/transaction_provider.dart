@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
@@ -8,8 +10,12 @@ part 'transaction_provider.g.dart';
 
 @riverpod
 class TransactionNotifier extends _$TransactionNotifier {
+  late Box<TransactionModel> _transactions;
   @override
   TransactionModel build() {
+    _transactions = Hive.box(transactionBox);
+
+    print(_transactions.values.toList()[1].transactionDate);
     return TransactionModel(
       id: Uuid().v1().toString(),
       remoteId: null,
@@ -87,5 +93,11 @@ class TransactionNotifier extends _$TransactionNotifier {
         ],
       ),
     );
+  }
+
+  void saveTransaction(String amount, String notes){
+    // print(state.transactionType);
+    state = state.copyWith(notes: notes, amount: double.parse(amount));
+    _transactions.add(state);
   }
 }

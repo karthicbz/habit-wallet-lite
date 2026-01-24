@@ -23,7 +23,7 @@ class NavigationPage extends ConsumerWidget {
       ),
       NavigationDestination(
         icon: Icon(Icons.receipt_long),
-        label: 'Expenses',
+        label: 'Transactions',
       ),
       NavigationDestination(
         icon: Icon(Icons.settings),

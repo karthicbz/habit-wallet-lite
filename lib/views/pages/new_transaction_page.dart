@@ -5,6 +5,7 @@ import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_provider.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
+import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 import 'package:intl/intl.dart';
 
 class NewTransactionPage extends ConsumerStatefulWidget {
@@ -15,13 +16,16 @@ class NewTransactionPage extends ConsumerStatefulWidget {
 }
 
 class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
-  TextEditingController amountEditingController = TextEditingController();
+  TextEditingController amountEditingController = TextEditingController(
+    text: "0.0",
+  );
   TextEditingController transactionDateController = TextEditingController(
     text: DateFormat('MMM dd, yyyy').format(DateTime.now()),
   );
   TextEditingController categoryController = TextEditingController(
     text: Category.others.name,
   );
+  TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,14 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              transactionNotifier.saveTransaction(
+                amountEditingController.text,
+                notesController.text,
+              );
+              showScaffoldMessage("Transaction updated", context);
+              Navigator.pop(context);
+            },
             child: Text("Save", style: Theme.of(context).textTheme.bodyLarge),
           ),
         ],
@@ -119,6 +130,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                 TextField(
                   keyboardType: TextInputType.text,
                   maxLines: 5,
+                  controller: notesController,
                   decoration: InputDecoration(
                     labelText: notesText,
                     border: OutlineInputBorder(),
