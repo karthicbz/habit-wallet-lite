@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
@@ -14,6 +15,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await NotificationNotifier().initializeNotification();
   //initializing hive
   await Hive.initFlutter();
