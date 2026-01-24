@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
@@ -67,6 +68,14 @@ class TransactionNotifier extends _$TransactionNotifier {
   //   amountController.value = TextEditingValue(text: state.amount.toString());
   //   notesController.value = TextEditingValue(text: state.notes??"");
   // }
+
+  Future<void> showFilePicker()async{
+    await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+  }
 
   Future<void> updateTransactionDate(
     BuildContext context,

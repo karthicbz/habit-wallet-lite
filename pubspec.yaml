@@ -49,6 +49,7 @@ dependencies:
   flutter_dotenv: ^6.0.0
   syncfusion_flutter_charts: ^32.1.24
   flutter_localization: ^0.3.3
+  file_picker: ^10.3.8
 
 dev_dependencies:
   flutter_test:
