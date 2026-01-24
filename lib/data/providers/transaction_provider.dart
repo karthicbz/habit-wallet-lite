@@ -70,11 +70,19 @@ class TransactionNotifier extends _$TransactionNotifier {
   // }
 
   Future<void> showFilePicker()async{
-    await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
+      allowedExtensions: ['jpg', 'pdf', 'doc', 'txt', 'png', 'svg'],
     );
+    if(result != null){
+      state = state.copyWith(files: [...state.files!, ...result.files]);
+    }
+  }
+
+  void removeFiles(String fileName){
+    List<PlatformFile>? platformFiles = (state.files != null)?state.files?.where((file)=>file.name != fileName).toList():[];
+    state = state.copyWith(files: platformFiles);
   }
 
   Future<void> updateTransactionDate(

@@ -21,7 +21,8 @@ part 'hive_adapters.g.dart';
   AdapterSpec<TransactionCategoryModel>(),
   AdapterSpec<SyncModel>(),
   AdapterSpec<AppLocale>(),
-  AdapterSpec<AppLocaleModel>()
+  AdapterSpec<AppLocaleModel>(),
+  AdapterSpec<PlatformFile>()
 ])
 
 class HiveAdapters {}

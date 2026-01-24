@@ -81,7 +81,10 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
               showScaffoldMessage("Transaction updated", context);
               Navigator.pop(context);
             },
-            child: Text(AppLocalizations.of(context)!.saveText, style: Theme.of(context).textTheme.bodyLarge),
+            child: Text(
+              AppLocalizations.of(context)!.saveText,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
         ],
       ),
@@ -168,7 +171,28 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   title: Text(addAttachmentText),
                   subtitle: Text(uploadReceiptText),
                   trailing: Icon(Icons.attach_file),
-                  onTap: ()async=>await transactionNotifier.showFilePicker(),
+                  onTap: () async => await transactionNotifier.showFilePicker(),
+                ),
+                Column(
+                  children: (transactionModel.files != null)
+                      ? transactionModel.files!
+                            .map(
+                              (file) =>
+                                  // Card(child: Text("${file.name}${file.extension}")),
+                                  ListTile(
+                                    title: Text(file.name),
+                                    subtitle: Text(
+                                      "${(file.size / 1000000).toStringAsFixed(2)}MB",
+                                    ),
+                                    trailing: IconButton(
+                                      onPressed: () => transactionNotifier
+                                          .removeFiles(file.name),
+                                      icon: Icon(Icons.cancel),
+                                    ),
+                                  ),
+                            )
+                            .toList()
+                      : [],
                 ),
                 Divider(color: Theme.of(context).dividerColor),
               ],
