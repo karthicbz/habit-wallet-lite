@@ -71,6 +71,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
               transactionNotifier.saveTransaction(
                 amountEditingController.text,
                 notesController.text,
+                widget.id
               );
               showScaffoldMessage("Transaction updated", context);
               Navigator.pop(context);

@@ -48,9 +48,11 @@ class TransactionListNotifier extends _$TransactionListNotifier {
     // return [];
     // loadJsonFromFile();
     if (_transactionModel.isNotEmpty) {
+      final sorted = _transactionModel.values.toList()
+        ..sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
       return TransactionListHelper(
-        transactionModel: [..._transactionModel.values],
-        dummyTransactionModel: [..._transactionModel.values],
+        transactionModel: [...sorted],
+        dummyTransactionModel: [...sorted],
         isLoading: false,
       );
     } else {

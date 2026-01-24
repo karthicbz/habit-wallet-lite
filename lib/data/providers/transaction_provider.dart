@@ -45,10 +45,14 @@ class TransactionNotifier extends _$TransactionNotifier {
     TransactionModel model = _transactions.values
         .where((t) => t.id == id)
         .first;
-      amountController.value = TextEditingValue(text: model.amount.toString());
-      notesController.value = TextEditingValue(text: model.notes??"");
-      dateController.value = TextEditingValue(text: DateFormat('MMM dd, yyyy').format(model.transactionDate!));
-      categoryController.value = TextEditingValue(text: model.category?.name??Category.others.name);
+    amountController.value = TextEditingValue(text: model.amount.toString());
+    notesController.value = TextEditingValue(text: model.notes ?? "");
+    dateController.value = TextEditingValue(
+      text: DateFormat('MMM dd, yyyy').format(model.transactionDate!),
+    );
+    categoryController.value = TextEditingValue(
+      text: model.category?.name ?? Category.others.name,
+    );
     state = model;
   }
 
@@ -121,9 +125,34 @@ class TransactionNotifier extends _$TransactionNotifier {
     );
   }
 
-  void saveTransaction(String amount, String notes) {
+  void saveTransaction(String amount, String notes, String? id) {
     // print(state.transactionType);
-    state = state.copyWith(notes: notes, amount: double.parse(amount));
-    _transactions.add(state);
+    //if id is not there then it's a new update
+    print("id: $id");
+    if (id == null) {
+      print("I am inside null");
+      state = state.copyWith(notes: notes, amount: double.parse(amount));
+      _transactions.add(state);
+    } else {
+      print("I am not inside null");
+      //if id is there then it's an edit
+      state = state.copyWith(
+        notes: notes,
+        amount: double.parse(amount),
+        isEditedLocally: true,
+        updatedAt: DateTime.now(),
+      );
+      List<TransactionModel> models = _transactions.values
+          .where((t) => t.id != id)
+          .toList();
+      for (int i = 0; i < _transactions.length; i++) {
+        if (_transactions.values.toList()[i].id == id) {
+          _transactions.deleteAt(i);
+          break;
+        }
+      }
+      _transactions.add(state);
+      // _transactions.addAll(models);
+    }
   }
 }
