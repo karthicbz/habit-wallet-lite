@@ -21,6 +21,8 @@ void main() async {
   //opening hive boxes
   await Hive.openBox<SettingsModel>(settingsBox);
   await Hive.openBox<TransactionModel>(transactionBox);
+  await Hive.openBox<bool>(transactionStatusBox);
+
   runApp(ProviderScope(child: MyApp()));
 }
 
