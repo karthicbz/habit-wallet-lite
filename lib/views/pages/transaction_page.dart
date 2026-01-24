@@ -87,13 +87,17 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                           title: Row(
                             spacing: 4,
                             children: [
-                              Text(
-                                AppHelper().convertEnumToString(
-                                  transactionListHelper
-                                          .transactionModel[index]
-                                          .category ??
-                                      Category.others,
-                                  context,
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  AppHelper().convertEnumToString(
+                                    transactionListHelper
+                                            .transactionModel[index]
+                                            .category ??
+                                        Category.others,
+                                    context,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               (transactionListHelper

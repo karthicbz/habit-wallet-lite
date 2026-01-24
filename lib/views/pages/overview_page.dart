@@ -86,63 +86,86 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                 builder: (context, ref, child) {
                   List<TransactionCategoryModel> transactionCategory = ref
                       .watch(transactionCategoryProvider);
+                  TransactionCategoryNotifier transactionCategoryNotifier = ref
+                      .read(transactionCategoryProvider.notifier);
                   return Expanded(
-                    child: ListView.builder(
-                      itemCount: transactionCategory.length,
-                      itemBuilder: (context, index) => ListTile(
-                        leading: CircleAvatar(
-                          child:
-                              (transactionCategory[index].category ==
-                                  Category.education)
-                              ? Icon(Icons.book)
-                              : (transactionCategory[index].category ==
-                                    Category.foodAndGroceries)
-                              ? Icon(Icons.fastfood)
-                              : (transactionCategory[index].category ==
-                                    Category.medicine)
-                              ? Icon(Icons.local_hospital)
-                              : (transactionCategory[index].category ==
-                                    Category.shopping)
-                              ? Icon(Icons.shopping_bag)
-                              : (transactionCategory[index].category ==
-                                    Category.transport)
-                              ? Icon(Icons.emoji_transportation)
-                              : (transactionCategory[index].category ==
-                                    Category.utilities)
-                              ? Icon(Icons.home)
-                              : Icon(Icons.star),
-                        ),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Text(transactionCategory[index].category.name),
-                            SizedBox(
-                              width: 150,
-                              child: Text(
-                                AppHelper().convertEnumToString(
-                                  transactionCategory[index].category,
-                                  context,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                    child: (transactionCategory.isEmpty)
+                        ? LinearProgressIndicator()
+                        : ListView.builder(
+                            itemCount: transactionCategory.length,
+                            itemBuilder: (context, index) => ListTile(
+                              onTap: () =>
+                                  transactionCategoryNotifier.updateSpent(
+                                    transactionCategory[index].category,
+                                    context,
+                                  ),
+                              leading: CircleAvatar(
+                                child:
+                                    (transactionCategory[index].category ==
+                                        Category.education)
+                                    ? Icon(Icons.book)
+                                    : (transactionCategory[index].category ==
+                                          Category.foodAndGroceries)
+                                    ? Icon(Icons.fastfood)
+                                    : (transactionCategory[index].category ==
+                                          Category.medicine)
+                                    ? Icon(Icons.local_hospital)
+                                    : (transactionCategory[index].category ==
+                                          Category.shopping)
+                                    ? Icon(Icons.shopping_bag)
+                                    : (transactionCategory[index].category ==
+                                          Category.transport)
+                                    ? Icon(Icons.emoji_transportation)
+                                    : (transactionCategory[index].category ==
+                                          Category.utilities)
+                                    ? Icon(Icons.home)
+                                    : Icon(Icons.star),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Text(transactionCategory[index].category.name),
+                                  SizedBox(
+                                    width: 150,
+                                    child: Text(
+                                      AppHelper().convertEnumToString(
+                                        transactionCategory[index].category,
+                                        context,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Text(
+                                    transactionCategory[index].spent.toString(),
+                                  ),
+                                ],
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                // spacing: 4,
+                                children: [
+                                  LinearProgressIndicator(
+                                    value:
+                                    (transactionCategory[index].limit ==0)?0:((transactionCategory[index].spent /
+                                                transactionCategory[index]
+                                                    .limit) *
+                                            100) /
+                                        100,
+                                    minHeight: 10,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  Text(
+                                    (transactionCategory[index].spent >=
+                                            transactionCategory[index].limit)
+                                        ? "Exceeded by ${transactionCategory[index].spent - transactionCategory[index].limit}"
+                                        : "${transactionCategory[index].spent / transactionCategory[index].limit}% of ${transactionCategory[index].limit} budget",
+                                    // "40% of ${transactionCategory[index].limit}",
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(transactionCategory[index].spent.toString()),
-                          ],
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // spacing: 4,
-                          children: [
-                            LinearProgressIndicator(
-                              value: 0.4,
-                              minHeight: 10,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            Text("40% of ${transactionCategory[index].limit}"),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
                   );
                 },
               ),

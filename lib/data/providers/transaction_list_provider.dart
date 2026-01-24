@@ -35,7 +35,7 @@ class TransactionListHelper {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TransactionListNotifier extends _$TransactionListNotifier {
   late Box<bool> _transactionLoadStatus;
   late Box<TransactionModel> _transactionModel;
@@ -87,7 +87,7 @@ class TransactionListNotifier extends _$TransactionListNotifier {
             transactionType: (t["type"] == "DEBIT")
                 ? Transaction.expense
                 : Transaction.income,
-            category: null,
+            category: Category.others,
             amount: double.parse(t["amount"]),
             transactionDate: DateTime.parse(t["transactionTimestamp"]),
             notes: null,
