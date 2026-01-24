@@ -49,5 +49,10 @@
   "utilitiesText": "Utilities",
   "medicineText": "Medicine",
   "educationText": "Education",
-  "othersText": "Others"
+  "othersText": "Others",
+  "overviewText": "Overview",
+  "transactionText": "Transactions",
+  "settingsText": "Settings",
+  "noNotesFoundText": "No notes found",
+  "editedLocally": "Edited Locally"
 }

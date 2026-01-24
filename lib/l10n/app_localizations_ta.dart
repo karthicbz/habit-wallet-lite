@@ -157,4 +157,19 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get othersText => 'மற்றவை';
+
+  @override
+  String get overviewText => 'மேலோட்டம்';
+
+  @override
+  String get transactionText => 'பரிவர்த்தனைகள்';
+
+  @override
+  String get settingsText => 'அமைப்புகள்';
+
+  @override
+  String get noNotesFoundText => 'குறிப்புகள் எதுவும் இல்லை';
+
+  @override
+  String get editedLocally => 'உள்ளூர் ரீதியாக திருத்தப்பட்டது';
 }

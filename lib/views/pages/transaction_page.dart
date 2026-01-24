@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
@@ -8,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import '../../data/constants/hive_boxes.dart';
 import '../../data/models/transaction_model.dart';
+import '../../l10n/app_localizations.dart';
 
 class TransactionPage extends ConsumerStatefulWidget {
   const TransactionPage({super.key});
@@ -41,7 +43,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                transactionTitle,
+                AppLocalizations.of(context)!.transactionText,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               (transactionListHelper.isLoading)
@@ -52,7 +54,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                         itemCount:
                             transactionListHelper.transactionModel.length,
                         itemBuilder: (context, index) => ListTile(
-                          onTap: () async{
+                          onTap: () async {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -86,11 +88,13 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                             spacing: 4,
                             children: [
                               Text(
-                                transactionListHelper
-                                        .transactionModel[index]
-                                        .category
-                                        ?.name ??
-                                    "Other",
+                                AppHelper().convertEnumToString(
+                                  transactionListHelper
+                                          .transactionModel[index]
+                                          .category ??
+                                      Category.others,
+                                  context,
+                                ),
                               ),
                               (transactionListHelper
                                           .transactionModel[index]
@@ -115,11 +119,15 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                                             .transactionModel[index]
                                             .notes!
                                             .isEmpty)
-                                    ? "No note found"
+                                    ? AppLocalizations.of(
+                                        context,
+                                      )!.noNotesFoundText
                                     : transactionListHelper
                                               .transactionModel[index]
                                               .notes ??
-                                          "No notes found.",
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.noNotesFoundText,
                               ),
                               Text(
                                 DateFormat('MMM dd, yyyy').format(

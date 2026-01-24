@@ -9,6 +9,8 @@ import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 import 'package:intl/intl.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class NewTransactionPage extends ConsumerStatefulWidget {
   final String? id;
 
@@ -62,7 +64,9 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
           icon: Icon(Icons.close),
         ),
         title: Text(
-          (widget.id == null) ? addTransactionText : editTransactionText,
+          (widget.id == null)
+              ? AppLocalizations.of(context)!.addTransactionText
+              : AppLocalizations.of(context)!.editTransactionText,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
@@ -71,12 +75,12 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
               transactionNotifier.saveTransaction(
                 amountEditingController.text,
                 notesController.text,
-                widget.id
+                widget.id,
               );
               showScaffoldMessage("Transaction updated", context);
               Navigator.pop(context);
             },
-            child: Text("Save", style: Theme.of(context).textTheme.bodyLarge),
+            child: Text(AppLocalizations.of(context)!.saveText, style: Theme.of(context).textTheme.bodyLarge),
           ),
         ],
       ),
@@ -93,11 +97,11 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   segments: <ButtonSegment<Transaction>>[
                     ButtonSegment(
                       value: Transaction.expense,
-                      label: Text("Expense"),
+                      label: Text(AppLocalizations.of(context)!.expenseText),
                     ),
                     ButtonSegment(
                       value: Transaction.income,
-                      label: Text("Income"),
+                      label: Text(AppLocalizations.of(context)!.incomeText),
                     ),
                   ],
                   selected: {transactionModel.transactionType},
@@ -109,7 +113,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                 ),
                 CustomTextField(
                   textEditingController: amountEditingController,
-                  label: amountText,
+                  label: AppLocalizations.of(context)!.amountText,
                   isPassword: false,
                   textInputType: TextInputType.number,
                 ),
@@ -118,7 +122,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   readOnly: true,
                   controller: categoryController,
                   decoration: InputDecoration(
-                    labelText: categoryText,
+                    labelText: AppLocalizations.of(context)!.categoryText,
                     border: OutlineInputBorder(),
                     suffixIcon: GestureDetector(
                       child: Icon(Icons.arrow_drop_down_outlined),
@@ -136,7 +140,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   readOnly: true,
                   controller: transactionDateController,
                   decoration: InputDecoration(
-                    labelText: dateText,
+                    labelText: AppLocalizations.of(context)!.dateText,
                     border: OutlineInputBorder(),
                     suffixIcon: GestureDetector(
                       child: Icon(Icons.calendar_month),
@@ -155,7 +159,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   maxLines: 5,
                   controller: notesController,
                   decoration: InputDecoration(
-                    labelText: notesText,
+                    labelText: AppLocalizations.of(context)!.notesText,
                     border: OutlineInputBorder(),
                   ),
                 ),

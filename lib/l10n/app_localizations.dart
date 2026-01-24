@@ -394,6 +394,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Others'**
   String get othersText;
+
+  /// No description provided for @overviewText.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overviewText;
+
+  /// No description provided for @transactionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get transactionText;
+
+  /// No description provided for @settingsText.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsText;
+
+  /// No description provided for @noNotesFoundText.
+  ///
+  /// In en, this message translates to:
+  /// **'No notes found'**
+  String get noNotesFoundText;
+
+  /// No description provided for @editedLocally.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited Locally'**
+  String get editedLocally;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

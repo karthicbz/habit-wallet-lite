@@ -49,5 +49,10 @@
   "utilitiesText": "பயன்பாட்டுச் சேவைகள்",
   "medicineText": "மருந்து",
   "educationText": "கல்வி",
-  "othersText": "மற்றவை"
+  "othersText": "மற்றவை",
+  "overviewText": "மேலோட்டம்",
+  "transactionText": "பரிவர்த்தனைகள்",
+  "settingsText": "அமைப்புகள்",
+  "noNotesFoundText": "குறிப்புகள் எதுவும் இல்லை",
+  "editedLocally": "உள்ளூர் ரீதியாக திருத்தப்பட்டது"
 }

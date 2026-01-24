@@ -13,6 +13,8 @@ import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -39,7 +41,7 @@ class SettingsPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Settings",
+                  AppLocalizations.of(context)!.settingsText,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 Column(
@@ -47,12 +49,12 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      appearanceText.toUpperCase(),
+                      AppLocalizations.of(context)!.appearanceText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SettingsList(
-                      listTitle: darkModeText,
-                      listSubtitle: darkModeSubtitleText,
+                      listTitle: AppLocalizations.of(context)!.darkModeText,
+                      listSubtitle: AppLocalizations.of(context)!.darkModeSubtitleText,
                       listIcon: Icons.dark_mode,
                       isSwitch: true,
                       switchValue: settingsModel.darkMode,
@@ -66,7 +68,7 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      languageTitleText.toUpperCase(),
+                      AppLocalizations.of(context)!.languageTitleText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Consumer(
@@ -76,9 +78,9 @@ class SettingsPage extends ConsumerWidget {
                               localeProvider,
                             );
                             return SettingsList(
-                              listTitle: languageText,
+                              listTitle: AppLocalizations.of(context)!.languageText,
                               listSubtitle:
-                                  "Language: ${(applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்"}",
+                                  "${(applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்"}",
                               listIcon: Icons.translate,
                               isSegmentedButton: true,
                             );
@@ -92,7 +94,7 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      dataSyncDisplayText.toUpperCase(),
+                      AppLocalizations.of(context)!.dataSyncDisplayText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     // SettingsList(
@@ -102,9 +104,9 @@ class SettingsPage extends ConsumerWidget {
                     //   isSwitch: true,
                     // ),
                     SettingsList(
-                      listTitle: syncTitle,
+                      listTitle: AppLocalizations.of(context)!.syncTitle,
                       listSubtitle:
-                          "Last Synced ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
+                          "${AppLocalizations.of(context)!.dataSyncDisplayText} ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
                       listIcon: Icons.sync,
                       isButton: true,
                       buttonFunc: () async {
@@ -126,12 +128,12 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      notificationTitleText.toUpperCase(),
+                      AppLocalizations.of(context)!.notificationTitleText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SettingsList(
-                      listTitle: dailyRemainderTitleText,
-                      listSubtitle: dailyRemainderSubtitleText,
+                      listTitle: AppLocalizations.of(context)!.dailyRemainderTitleText,
+                      listSubtitle: AppLocalizations.of(context)!.dailyRemainderSubtitleText,
                       listIcon: Icons.notifications,
                       isSwitch: true,
                       switchValue: settingsModel.remainder,
@@ -142,7 +144,7 @@ class SettingsPage extends ConsumerWidget {
                 SizedBox(height: 30),
 
                 CustomElevatedButton(
-                  buttonText: logoutText,
+                  buttonText: AppLocalizations.of(context)!.logoutText,
                   buttonAction: () {
                     settingsNotifier.updateAutoLogin();
                     Navigator.pushReplacement(

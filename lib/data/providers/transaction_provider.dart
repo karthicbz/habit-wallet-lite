@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../l10n/app_localizations.dart';
 
 part 'transaction_provider.g.dart';
 
@@ -88,7 +91,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Choose Category"),
+        title: Text(AppLocalizations.of(context)!.categoryText),
         content: SizedBox(
           width: 400,
           height: 300,
@@ -100,7 +103,8 @@ class TransactionNotifier extends _$TransactionNotifier {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    Category.values[index].name,
+
+                    AppHelper().convertEnumToString(Category.values[index], context),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),

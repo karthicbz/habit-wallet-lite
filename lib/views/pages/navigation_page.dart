@@ -6,6 +6,8 @@ import 'package:habit_wallet_lite/views/pages/overview_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
 import 'package:habit_wallet_lite/views/pages/transaction_page.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class NavigationPage extends ConsumerWidget {
   const NavigationPage({super.key});
 
@@ -20,15 +22,15 @@ class NavigationPage extends ConsumerWidget {
       NavigationDestination(
         // selectedIcon: Icon(Icons.home),
         icon: Icon(Icons.dashboard),
-        label: 'Overview',
+        label: AppLocalizations.of(context)!.overviewText,
       ),
       NavigationDestination(
         icon: Icon(Icons.receipt_long),
-        label: 'Transactions',
+        label: AppLocalizations.of(context)!.transactionText,
       ),
       NavigationDestination(
         icon: Icon(Icons.settings),
-        label: 'Settings',
+        label: AppLocalizations.of(context)!.settingsText,
       ),
     ];
 

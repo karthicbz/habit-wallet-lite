@@ -157,4 +157,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get othersText => 'Others';
+
+  @override
+  String get overviewText => 'Overview';
+
+  @override
+  String get transactionText => 'Transactions';
+
+  @override
+  String get settingsText => 'Settings';
+
+  @override
+  String get noNotesFoundText => 'No notes found';
+
+  @override
+  String get editedLocally => 'Edited Locally';
 }

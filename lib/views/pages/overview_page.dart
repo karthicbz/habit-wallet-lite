@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/chart_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
@@ -32,24 +33,24 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
     });
   }
 
-  String convertEnumToString(Category category) {
-    switch (category) {
-      case Category.education:
-        return educationText;
-      case Category.foodAndGroceries:
-        return foodAndBeverageText;
-      case Category.transport:
-        return transportText;
-      case Category.shopping:
-        return shoppingText;
-      case Category.utilities:
-        return utilitiesText;
-      case Category.medicine:
-        return medicineText;
-      case Category.others:
-        return othersText;
-    }
-  }
+  // String convertEnumToString(Category category) {
+  //   switch (category) {
+  //     case Category.education:
+  //       return AppLocalizations.of(context)!.educationText;
+  //     case Category.foodAndGroceries:
+  //       return AppLocalizations.of(context)!.foodAndBeverageText;
+  //     case Category.transport:
+  //       return AppLocalizations.of(context)!.transportText;
+  //     case Category.shopping:
+  //       return AppLocalizations.of(context)!.shoppingText;
+  //     case Category.utilities:
+  //       return AppLocalizations.of(context)!.utilitiesText;
+  //     case Category.medicine:
+  //       return AppLocalizations.of(context)!.medicineText;
+  //     case Category.others:
+  //       return AppLocalizations.of(context)!.othersText;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                dashboardText,
+                AppLocalizations.of(context)!.dashboardText,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               Consumer(
@@ -134,9 +135,14 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Text(transactionCategory[index].category.name),
-                            Text(
-                              convertEnumToString(
-                                transactionCategory[index].category,
+                            SizedBox(
+                              width: 250,
+                              child: Text(
+                                AppHelper().convertEnumToString(
+                                  transactionCategory[index].category,
+                                  context,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(transactionCategory[index].spent.toString()),

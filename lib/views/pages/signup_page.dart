@@ -9,6 +9,8 @@ import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
+import '../../l10n/app_localizations.dart';
+
 class SignupPage extends ConsumerWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
@@ -33,13 +35,13 @@ class SignupPage extends ConsumerWidget {
               spacing: 16.0,
               children: [
                 Text(
-                  createAccountText,
+                  AppLocalizations.of(context)!.createAccountText,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
-                Text(signupAppMessageText),
+                Text(AppLocalizations.of(context)!.signupAppMessageText),
                 CustomTextField(
                   textEditingController: emailController,
-                  label: emailText,
+                  label: AppLocalizations.of(context)!.emailText,
                   isPassword: false,
                 ),
                 Row(
@@ -48,14 +50,14 @@ class SignupPage extends ConsumerWidget {
                     Expanded(
                       child: CustomTextField(
                         textEditingController: pinController,
-                        label: "4 $fourDigitPinText",
+                        label: "4 ${AppLocalizations.of(context)!.fourDigitPinText}",
                         isPassword: true,
                       ),
                     ),
                     Expanded(
                       child: CustomTextField(
                         textEditingController: pinConfirmController,
-                        label: confirmPinText,
+                        label: AppLocalizations.of(context)!.confirmPinText,
                         isPassword: true,
                       ),
                     ),
@@ -71,7 +73,7 @@ class SignupPage extends ConsumerWidget {
                         return (secureAuthModel.isLoading ?? false)
                             ? LinearProgressIndicator()
                             : CustomElevatedButton(
-                                buttonText: signupText,
+                                buttonText: AppLocalizations.of(context)!.signupText,
                                 buttonAction: () async {
                                   if (pinController.text !=
                                       pinConfirmController.text) {
@@ -116,13 +118,13 @@ class SignupPage extends ConsumerWidget {
                   children: [
                     SizedBox(
                       child: Text(
-                        alreadyAccountText,
+                        AppLocalizations.of(context)!.alreadyAccountText,
                         textAlign: TextAlign.right,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                     CustomTextButton(
-                      buttonText: loginText,
+                      buttonText: AppLocalizations.of(context)!.loginText,
                       buttonAction: () => Navigator.pop(context),
                     ),
                   ],

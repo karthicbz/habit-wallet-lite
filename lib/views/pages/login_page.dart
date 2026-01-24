@@ -11,6 +11,7 @@ import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../widgets/custom_textfield.dart';
 
 class LoginPage extends StatefulWidget {
@@ -53,11 +54,11 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      signInText,
+                      AppLocalizations.of(context)!.signInText,
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     Text(
-                      appMessage,
+                      AppLocalizations.of(context)!.appMessage,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -69,13 +70,14 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     CustomTextField(
                       textEditingController: emailController,
-                      label: emailText,
+                      label: AppLocalizations.of(context)!.emailText,
                       textInputType: TextInputType.emailAddress,
                       isPassword: false,
                     ),
                     CustomTextField(
                       textEditingController: pinController,
-                      label: "4 $fourDigitPinText",
+                      label:
+                          "4 ${AppLocalizations.of(context)!.fourDigitPinText}",
                       isPassword: true,
                     ),
                     Row(
@@ -100,11 +102,22 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               },
                         ),
-                        Text(rememberMeText),
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            AppLocalizations.of(context)!.rememberMeText,
+
+                          ),
+                        ),
                         Spacer(),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(forgotPinText),
+                        SizedBox(
+                          width: 150,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              AppLocalizations.of(context)!.forgotPinText,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -123,7 +136,9 @@ class _LoginPageState extends State<LoginPage> {
                         return (secureAuthModel.isLoading ?? false)
                             ? LinearProgressIndicator()
                             : CustomElevatedButton(
-                                buttonText: loginText,
+                                buttonText: AppLocalizations.of(
+                                  context,
+                                )!.loginText,
                                 buttonAction: () async {
                                   bool isValidUser = await secureAuthNotifier
                                       .validateLogin(
@@ -172,9 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 50),
                 Column(
                   children: [
-                    Text(newUserText),
+                    Text(AppLocalizations.of(context)!.newUserText),
                     CustomTextButton(
-                      buttonText: createAccountText,
+                      buttonText: AppLocalizations.of(context)!.createAccountText,
                       buttonAction: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignupPage()),
