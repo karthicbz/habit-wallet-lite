@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_provider.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
+import 'package:intl/intl.dart';
 
 class NewTransactionPage extends ConsumerStatefulWidget {
   const NewTransactionPage({super.key});
@@ -14,6 +16,12 @@ class NewTransactionPage extends ConsumerStatefulWidget {
 
 class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
   TextEditingController amountEditingController = TextEditingController();
+  TextEditingController transactionDateController = TextEditingController(
+    text: DateFormat('MMM dd, yyyy').format(DateTime.now()),
+  );
+  TextEditingController categoryController = TextEditingController(
+    text: Category.others.name,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +51,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
           child: Padding(
             padding: EdgeInsets.all(12),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               spacing: 24,
               children: [
                 Divider(color: Theme.of(context).dividerColor),
@@ -60,6 +69,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   selected: {transactionModel.transactionType},
                   onSelectionChanged: (newSelection) {
                     // print(newSelection);
+                    HapticFeedback.mediumImpact();
                     transactionNotifier.updateTransactionType(newSelection);
                   },
                 ),
@@ -72,29 +82,46 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                 TextField(
                   keyboardType: TextInputType.datetime,
                   readOnly: true,
+                  controller: categoryController,
                   decoration: InputDecoration(
-                      labelText: categoryText,
-                      border: OutlineInputBorder(),
-
-                      suffixIcon: GestureDetector(child: Icon(Icons.arrow_drop_down_outlined), onTap: ()=>print("Tapped"),)
+                    labelText: categoryText,
+                    border: OutlineInputBorder(),
+                    suffixIcon: GestureDetector(
+                      child: Icon(Icons.arrow_drop_down_outlined),
+                      onTap: () {
+                        transactionNotifier.updateCategory(
+                          context,
+                          categoryController,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 TextField(
                   keyboardType: TextInputType.datetime,
                   readOnly: true,
+                  controller: transactionDateController,
                   decoration: InputDecoration(
                     labelText: dateText,
                     border: OutlineInputBorder(),
-
-                    suffixIcon: GestureDetector(child: Icon(Icons.calendar_month), onTap: ()=>print("Tapped"),)
+                    suffixIcon: GestureDetector(
+                      child: Icon(Icons.calendar_month),
+                      onTap: () async {
+                        //passing texteditingcontroller reference
+                        await transactionNotifier.updateTransactionDate(
+                          context,
+                          transactionDateController,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 TextField(
                   keyboardType: TextInputType.text,
                   maxLines: 5,
                   decoration: InputDecoration(
-                      labelText: notesText,
-                      border: OutlineInputBorder(),
+                    labelText: notesText,
+                    border: OutlineInputBorder(),
                   ),
                 ),
                 ListTile(
@@ -102,7 +129,7 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
                   subtitle: Text(uploadReceiptText),
                   trailing: Icon(Icons.attach_file),
                 ),
-                Divider(color: Theme.of(context).dividerColor,)
+                Divider(color: Theme.of(context).dividerColor),
               ],
             ),
           ),
