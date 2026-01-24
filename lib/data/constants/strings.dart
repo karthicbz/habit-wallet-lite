@@ -42,3 +42,6 @@ final String addAttachmentText = "Add Attachment";
 final String uploadReceiptText = "Upload receipt or image";
 //transaction page
 final String transactionTitle = "Transactions";
+//dashboard page
+final String dashboardText = "Dashboard";
+final String categoryBreakDownText = "Category Breakdown";

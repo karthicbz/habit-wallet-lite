@@ -74,12 +74,12 @@ class SettingsPage extends ConsumerWidget {
                       dataSyncDisplayText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    SettingsList(
-                      listTitle: backgroundSyncTitleText,
-                      listSubtitle: backgroundSyncSubtitleText,
-                      listIcon: Icons.task,
-                      isSwitch: true,
-                    ),
+                    // SettingsList(
+                    //   listTitle: backgroundSyncTitleText,
+                    //   listSubtitle: backgroundSyncSubtitleText,
+                    //   listIcon: Icons.task,
+                    //   isSwitch: true,
+                    // ),
                     SettingsList(
                       listTitle: syncTitle,
                       listSubtitle: "Last Synced 5m ago",
