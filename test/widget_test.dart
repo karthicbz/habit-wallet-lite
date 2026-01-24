@@ -7,6 +7,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:habit_wallet_lite/data/providers/transaction_category_provider.dart';
+import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 
 import 'package:habit_wallet_lite/main.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
@@ -14,8 +16,16 @@ import 'package:habit_wallet_lite/views/pages/login_page.dart';
 void main() {
   testWidgets('App launches without crashing', (WidgetTester tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MyApp(
+      ProviderScope(
+        overrides: [
+          transactionListProvider.overrideWith(
+                () => TransactionListNotifier(),
+          ),
+          transactionCategoryProvider.overrideWith(
+                () => TransactionCategoryNotifier(),
+          ),
+        ],
+        child: const MyApp(
           initialHome: LoginPage(),
         ),
       ),
