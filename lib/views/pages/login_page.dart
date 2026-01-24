@@ -7,6 +7,7 @@ import 'package:habit_wallet_lite/data/providers/secure_auth_provider.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
 import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
 import 'package:habit_wallet_lite/views/pages/signup_page.dart';
+import 'package:habit_wallet_lite/views/widgets/consumer_segmented_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_text_button.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
@@ -37,19 +38,16 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.payments),
-
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Text("English"),
+                    CircleAvatar(
+                      radius: 35,
+                      child: Icon(Icons.payments, size: 36),
                     ),
+                    ConsumerSegmentedButton(),
                   ],
                 ),
+                SizedBox(height: 16,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -106,7 +104,6 @@ class _LoginPageState extends State<LoginPage> {
                           width: 150,
                           child: Text(
                             AppLocalizations.of(context)!.rememberMeText,
-
                           ),
                         ),
                         Spacer(),
@@ -169,27 +166,15 @@ class _LoginPageState extends State<LoginPage> {
                       },
                 ),
                 SizedBox(height: 250),
-                // Card(
-                //   elevation: 0,
-                //   child: Row(
-                //     children: [
-                //       Icon(Icons.sync),
-                //       Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: Text(
-                //           syncMessage,
-                //           style: Theme.of(context).textTheme.bodyMedium,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+
                 SizedBox(height: 50),
                 Column(
                   children: [
                     Text(AppLocalizations.of(context)!.newUserText),
                     CustomTextButton(
-                      buttonText: AppLocalizations.of(context)!.createAccountText,
+                      buttonText: AppLocalizations.of(
+                        context,
+                      )!.createAccountText,
                       buttonAction: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignupPage()),
