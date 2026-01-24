@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
-import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/constants/app_helper.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
-import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/intl.dart';
-
-import '../../data/constants/hive_boxes.dart';
 import '../../data/models/transaction_model.dart';
 import '../../l10n/app_localizations.dart';
 

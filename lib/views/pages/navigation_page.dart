@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/providers/navigation_index_provider.dart';
-import 'package:habit_wallet_lite/views/pages/expenses_page.dart';
 import 'package:habit_wallet_lite/views/pages/overview_page.dart';
 import 'package:habit_wallet_lite/views/pages/settings_page.dart';
 import 'package:habit_wallet_lite/views/pages/transaction_page.dart';

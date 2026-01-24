@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/app_constants.dart';
-import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/app_locale_model.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
 import 'package:habit_wallet_lite/data/models/sync_model.dart';

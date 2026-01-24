@@ -25,14 +25,14 @@ class SyncNotifier extends _$SyncNotifier {
   }
 
   Future<bool> syncTransaction() async {
-    print(syncPath);
+    // print(syncPath);
     state = state.copyWith(isSyncing: true);
     List<TransactionModel> response = await getTransactions();
     List<TransactionModel> newTransactions = response
         .where((r) => !_transactionModel.values.contains(r))
         .toList();
     if (newTransactions.isNotEmpty) {
-      print("Resp is not empty");
+      // print("Resp is not empty");
       _transactionModel.addAll([...newTransactions]);
     }
     await postTransactions();

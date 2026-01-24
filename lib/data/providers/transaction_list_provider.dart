@@ -75,7 +75,7 @@ class TransactionListNotifier extends _$TransactionListNotifier {
         'assets/transactions.json',
       );
       final data = jsonDecode(jsonString);
-      print("data: $data");
+      // print("data: $data");
       List<TransactionModel> transactionModel = [];
       List<dynamic> transactions =
           data["BARB0KIMXXX"][0]["decrypted_data"]["Account"]["Transactions"]["Transaction"];

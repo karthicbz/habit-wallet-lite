@@ -8,7 +8,6 @@ import 'package:habit_wallet_lite/views/widgets/custom_page_route.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
 
 import '../../l10n/app_localizations.dart';
 

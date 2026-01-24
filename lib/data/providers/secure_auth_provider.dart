@@ -26,7 +26,7 @@ class SecureAuthNotifier extends _$SecureAuthNotifier {
       await _storage.write(key: emailKey, value: email);
       await _storage.write(key: pinKey, value: pin);
     }on PlatformException catch(e){
-      print(e.message);
+      // print(e.message);
     }
     state = state.copyWith(isLoading: false);
   }

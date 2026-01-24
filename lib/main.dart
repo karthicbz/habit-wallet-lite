@@ -15,10 +15,8 @@ import 'package:habit_wallet_lite/hive/hive_registrar.g.dart';
 import 'package:habit_wallet_lite/l10n/app_localizations.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/pages/navigation_page.dart';
-import 'package:habit_wallet_lite/views/pages/settings_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
-// import 'package:habit_wallet_lite/data/constants/app_constants.dart' as l;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

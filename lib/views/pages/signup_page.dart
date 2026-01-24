@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/app_constants.dart';
-import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/secure_auth_model.dart';
 import 'package:habit_wallet_lite/data/providers/secure_auth_provider.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';

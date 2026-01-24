@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
+import 'package:habit_wallet_lite/data/constants/app_helper.dart';
 import 'package:habit_wallet_lite/data/constants/hive_boxes.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:hive_ce_flutter/adapters.dart';
@@ -20,7 +20,7 @@ class TransactionNotifier extends _$TransactionNotifier {
   TransactionModel build() {
     _transactions = Hive.box(transactionBox);
 
-    print(_transactions.values.toList()[1].transactionDate);
+    // print(_transactions.values.toList()[1].transactionDate);
     return TransactionModel(
       id: Uuid().v1().toString(),
       remoteId: null,
@@ -149,13 +149,13 @@ class TransactionNotifier extends _$TransactionNotifier {
   void saveTransaction(String amount, String notes, String? id) {
     // print(state.transactionType);
     //if id is not there then it's a new update
-    print("id: $id");
+    // print("id: $id");
     if (id == null) {
-      print("I am inside null");
+      // print("I am inside null");
       state = state.copyWith(notes: notes, amount: double.parse(amount));
       _transactions.add(state);
     } else {
-      print("I am not inside null");
+      // print("I am not inside null");
       //if id is there then it's an edit
       state = state.copyWith(
         notes: notes,

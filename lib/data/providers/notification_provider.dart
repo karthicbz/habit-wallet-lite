@@ -100,7 +100,7 @@ class NotificationNotifier extends _$NotificationNotifier {
       matchDateTimeComponents: DateTimeComponents.time,
     );
 
-    print("Notification scheduled");
+    // print("Notification scheduled");
   }
 
   Future<void> cancelAllNotifications() async {

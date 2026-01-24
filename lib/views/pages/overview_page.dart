@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_wallet_lite/data/constants/AppHelper.dart';
-import 'package:habit_wallet_lite/data/constants/strings.dart';
+import 'package:habit_wallet_lite/data/constants/app_helper.dart';
 import 'package:habit_wallet_lite/data/models/chart_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_category_model.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
@@ -12,7 +11,7 @@ import 'package:habit_wallet_lite/l10n/app_localizations.dart';
 import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+
 
 class OverviewPage extends ConsumerStatefulWidget {
   const OverviewPage({super.key});
