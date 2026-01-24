@@ -1,13 +1,14 @@
 
 
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 
-class TransactionCategoryModel {
+class TransactionCategoryModel extends HiveObject{
   final Category category;
   final double limit;
   final double spent;
 
-  const TransactionCategoryModel({
+  TransactionCategoryModel({
     required this.category,
     required this.limit,
     required this.spent,

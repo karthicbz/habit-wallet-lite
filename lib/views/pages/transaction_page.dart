@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
+import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 
@@ -51,6 +52,16 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                         itemCount:
                             transactionListHelper.transactionModel.length,
                         itemBuilder: (context, index) => ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewTransactionPage(
+                                id: transactionListHelper
+                                    .transactionModel[index]
+                                    .id,
+                              ),
+                            ),
+                          ),
                           isThreeLine: true,
 
                           leading: Column(

@@ -11,6 +11,7 @@ part 'transaction_provider.g.dart';
 @riverpod
 class TransactionNotifier extends _$TransactionNotifier {
   late Box<TransactionModel> _transactions;
+
   @override
   TransactionModel build() {
     _transactions = Hive.box(transactionBox);
@@ -31,9 +32,34 @@ class TransactionNotifier extends _$TransactionNotifier {
     );
   }
 
+  //clicking on transaction list item takes user to edit transaction page
+  //and based on the id sent from transaction page here I am filtering it
+  //and updating the state for modification
+  void loadTransactionForEdit(
+    String id,
+    TextEditingController amountController,
+    TextEditingController notesController,
+    TextEditingController dateController,
+    TextEditingController categoryController,
+  ) {
+    TransactionModel model = _transactions.values
+        .where((t) => t.id == id)
+        .first;
+      amountController.value = TextEditingValue(text: model.amount.toString());
+      notesController.value = TextEditingValue(text: model.notes??"");
+      dateController.value = TextEditingValue(text: DateFormat('MMM dd, yyyy').format(model.transactionDate!));
+      categoryController.value = TextEditingValue(text: model.category?.name??Category.others.name);
+    state = model;
+  }
+
   void updateTransactionType(Set<Transaction?> transaction) {
     state = state.copyWith(transactionType: transaction.first);
   }
+
+  // void updateAmountAndNotes(TextEditingController amountController, TextEditingController notesController){
+  //   amountController.value = TextEditingValue(text: state.amount.toString());
+  //   notesController.value = TextEditingValue(text: state.notes??"");
+  // }
 
   Future<void> updateTransactionDate(
     BuildContext context,
@@ -95,7 +121,7 @@ class TransactionNotifier extends _$TransactionNotifier {
     );
   }
 
-  void saveTransaction(String amount, String notes){
+  void saveTransaction(String amount, String notes) {
     // print(state.transactionType);
     state = state.copyWith(notes: notes, amount: double.parse(amount));
     _transactions.add(state);

@@ -4,12 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/strings.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:habit_wallet_lite/data/providers/transaction_provider.dart';
+import 'package:habit_wallet_lite/views/widgets/custom_page_route.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_textfield.dart';
 import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 import 'package:intl/intl.dart';
 
 class NewTransactionPage extends ConsumerStatefulWidget {
-  const NewTransactionPage({super.key});
+  final String? id;
+
+  const NewTransactionPage({super.key, this.id});
 
   @override
   ConsumerState<NewTransactionPage> createState() => _NewTransactionPageState();
@@ -26,6 +29,25 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
     text: Category.others.name,
   );
   TextEditingController notesController = TextEditingController();
+  late CustomPageRoute customPageRoute;
+
+  @override
+  void initState() {
+    super.initState();
+    customPageRoute = CustomPageRoute(context: context);
+    if (widget.id != null) {
+      final transactionNotifier = ref.read(transactionProvider.notifier);
+      Future.delayed(Duration.zero, () {
+        transactionNotifier.loadTransactionForEdit(
+          widget.id!,
+          amountEditingController,
+          notesController,
+          transactionDateController,
+          categoryController,
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +58,11 @@ class _NewTransactionPageState extends ConsumerState<NewTransactionPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => customPageRoute.pop(),
           icon: Icon(Icons.close),
         ),
         title: Text(
-          addTransactionText,
+          (widget.id == null) ? addTransactionText : editTransactionText,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [

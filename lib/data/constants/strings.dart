@@ -31,6 +31,7 @@ final String signupText = "Sign Up";
 final String alreadyAccountText = "Already have an account?";
 //new transaction
 final String addTransactionText = "Add Transaction";
+final String editTransactionText = "Edit Transaction";
 final String saveText = "Save";
 final String expenseText = "Expense";
 final String incomeText = "Income";

@@ -35,26 +35,28 @@ class OverviewPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: transactionCategory.length,
                       itemBuilder: (context, index) => ListTile(
-                        leading:
-                            (transactionCategory[index].category ==
-                                Category.education)
-                            ? Icon(Icons.book)
-                            : (transactionCategory[index].category ==
-                                  Category.foodAndGroceries)
-                            ? Icon(Icons.fastfood)
-                            : (transactionCategory[index].category ==
-                                  Category.medicine)
-                            ? Icon(Icons.local_hospital)
-                            : (transactionCategory[index].category ==
-                                  Category.shopping)
-                            ? Icon(Icons.shopping_bag)
-                            : (transactionCategory[index].category ==
-                                  Category.transport)
-                            ? Icon(Icons.emoji_transportation)
-                            : (transactionCategory[index].category ==
-                                  Category.utilities)
-                            ? Icon(Icons.home)
-                            : Icon(Icons.star),
+                        leading: CircleAvatar(
+                          child:
+                              (transactionCategory[index].category ==
+                                  Category.education)
+                              ? Icon(Icons.book)
+                              : (transactionCategory[index].category ==
+                                    Category.foodAndGroceries)
+                              ? Icon(Icons.fastfood)
+                              : (transactionCategory[index].category ==
+                                    Category.medicine)
+                              ? Icon(Icons.local_hospital)
+                              : (transactionCategory[index].category ==
+                                    Category.shopping)
+                              ? Icon(Icons.shopping_bag)
+                              : (transactionCategory[index].category ==
+                                    Category.transport)
+                              ? Icon(Icons.emoji_transportation)
+                              : (transactionCategory[index].category ==
+                                    Category.utilities)
+                              ? Icon(Icons.home)
+                              : Icon(Icons.star),
+                        ),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
