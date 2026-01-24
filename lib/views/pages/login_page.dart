@@ -15,7 +15,7 @@ import '../../l10n/app_localizations.dart';
 import '../widgets/custom_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -160,7 +160,6 @@ class _LoginPageState extends State<LoginPage> {
                                         context,
                                       );
                                     }
-                                    ;
                                   }
                                 },
                               );

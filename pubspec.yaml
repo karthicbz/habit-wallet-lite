@@ -50,6 +50,7 @@ dependencies:
   syncfusion_flutter_charts: ^32.1.24
   flutter_localization: ^0.3.3
   file_picker: ^10.3.8
+  hive_ce: ^2.19.1
 
 dev_dependencies:
   flutter_test:

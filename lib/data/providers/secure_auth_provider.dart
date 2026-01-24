@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:habit_wallet_lite/data/constants/app_constants.dart';
@@ -27,6 +28,7 @@ class SecureAuthNotifier extends _$SecureAuthNotifier {
       await _storage.write(key: pinKey, value: pin);
     }on PlatformException catch(e){
       // print(e.message);
+      debugPrint(e.message);
     }
     state = state.copyWith(isLoading: false);
   }

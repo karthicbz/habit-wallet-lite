@@ -1,4 +1,3 @@
-import 'package:habit_wallet_lite/hive/hive_adapters.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 
 enum Language { english, tamil }

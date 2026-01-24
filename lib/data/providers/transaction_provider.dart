@@ -69,19 +69,21 @@ class TransactionNotifier extends _$TransactionNotifier {
   //   notesController.value = TextEditingValue(text: state.notes??"");
   // }
 
-  Future<void> showFilePicker()async{
+  Future<void> showFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'doc', 'txt', 'png', 'svg'],
     );
-    if(result != null){
+    if (result != null) {
       state = state.copyWith(files: [...state.files!, ...result.files]);
     }
   }
 
-  void removeFiles(String fileName){
-    List<PlatformFile>? platformFiles = (state.files != null)?state.files?.where((file)=>file.name != fileName).toList():[];
+  void removeFiles(String fileName) {
+    List<PlatformFile>? platformFiles = (state.files != null)
+        ? state.files?.where((file) => file.name != fileName).toList()
+        : [];
     state = state.copyWith(files: platformFiles);
   }
 
@@ -120,8 +122,10 @@ class TransactionNotifier extends _$TransactionNotifier {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-
-                    AppHelper().convertEnumToString(Category.values[index], context),
+                    AppHelper().convertEnumToString(
+                      Category.values[index],
+                      context,
+                    ),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
@@ -163,9 +167,7 @@ class TransactionNotifier extends _$TransactionNotifier {
         isEditedLocally: true,
         updatedAt: DateTime.now(),
       );
-      List<TransactionModel> models = _transactions.values
-          .where((t) => t.id != id)
-          .toList();
+      _transactions.values.where((t) => t.id != id).toList();
       for (int i = 0; i < _transactions.length; i++) {
         if (_transactions.values.toList()[i].id == id) {
           _transactions.deleteAt(i);

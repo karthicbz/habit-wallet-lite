@@ -49,7 +49,7 @@ class SyncNotifier extends _$SyncNotifier {
   }
 
   Future<void> postTransactions() async {
-    List<TransactionModel> newTransactions = [];
+    // List<TransactionModel> newTransactions = [];
     for (int i = 0; i < _transactionModel.length; i++) {
       TransactionModel transaction = _transactionModel.values.toList()[i];
       if(transaction.isEditedLocally == true) {

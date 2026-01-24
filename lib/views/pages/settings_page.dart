@@ -80,7 +80,7 @@ class SettingsPage extends ConsumerWidget {
                             return SettingsList(
                               listTitle: AppLocalizations.of(context)!.languageText,
                               listSubtitle:
-                                  "${(applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்"}",
+                                  (applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்",
                               listIcon: Icons.translate,
                               isSegmentedButton: true,
                             );
