@@ -12,6 +12,8 @@ class TransactionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Box<TransactionModel> _transactions = Hive.box(transactionBox);
+    List<TransactionModel> _transactionList = _transactions.values.toList();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -34,31 +36,27 @@ class TransactionPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           child:
-                              (_transactions.values
-                                      .toList()[index]
-                                      .transactionType ==
+                              (_transactionList[index].transactionType ==
                                   Transaction.income)
                               ? Icon(Icons.arrow_forward_outlined)
                               : Icon(Icons.arrow_back),
                         ),
                       ],
                     ),
-                    title: Text(
-                      _transactions.values.toList()[index].category!.name,
-                    ),
+                    title: Text(_transactionList[index].category!.name),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _transactions.values.toList()[index].notes ??
-                              "No Note",
+                          (_transactionList[index].notes != null &&
+                                  _transactionList[index].notes!.isEmpty)
+                              ? "No note found"
+                              : _transactionList[index].notes!,
                         ),
                         Text(
-                          DateFormat('MMM dd, yyyy').format(
-                            _transactions.values
-                                .toList()[index]
-                                .transactionDate!,
-                          ),
+                          DateFormat(
+                            'MMM dd, yyyy',
+                          ).format(_transactionList[index].transactionDate!),
                         ),
                       ],
                     ),
@@ -66,7 +64,7 @@ class TransactionPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "${(_transactions.values.toList()[index].transactionType == Transaction.income) ? "+" : "-"}${_transactions.values.toList()[index].amount}",
+                          "${(_transactionList[index].transactionType == Transaction.income) ? "+" : "-"}${_transactionList[index].amount}",
                           style: Theme.of(context).textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
