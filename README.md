@@ -1,5 +1,7 @@
 # habit_wallet_lite
 
+![Flutter CI](https://github.com/karthicbz/habit-wallet-lite/actions/workflows/flutter_ci.yml/badge.svg)
+
 A new Flutter project.
 
 ## Building
