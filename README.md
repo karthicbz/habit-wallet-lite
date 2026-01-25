@@ -4,6 +4,23 @@
 
 A new Flutter project.
 
+## Screenshots
+
+Login Page             |  Dashboard
+:-------------------------:|:-------------------------:
+![](assets/app_images/login.png)  |  ![](assets/app_images/dashboard.png)
+
+
+Transaction             |  Settings Light
+:-------------------------:|:-------------------------:
+![](assets/app_images/transaction.png)  |  ![](assets/app_images/settings_light.png)
+
+Transaction edited             |
+:-------------------------:|
+<img src="assets/app_images/transaction_edited.png" alt="drawing" width="200"/>
+
+
+
 ## Building
 
 * Setup the Flutter environment for your platform.
