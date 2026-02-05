@@ -49,12 +49,16 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.appearanceText.toUpperCase(),
+                      AppLocalizations.of(
+                        context,
+                      )!.appearanceText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SettingsList(
                       listTitle: AppLocalizations.of(context)!.darkModeText,
-                      listSubtitle: AppLocalizations.of(context)!.darkModeSubtitleText,
+                      listSubtitle: AppLocalizations.of(
+                        context,
+                      )!.darkModeSubtitleText,
                       listIcon: Icons.dark_mode,
                       isSwitch: true,
                       switchValue: settingsModel.darkMode,
@@ -68,7 +72,9 @@ class SettingsPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.languageTitleText.toUpperCase(),
+                      AppLocalizations.of(
+                        context,
+                      )!.languageTitleText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Consumer(
@@ -78,9 +84,13 @@ class SettingsPage extends ConsumerWidget {
                               localeProvider,
                             );
                             return SettingsList(
-                              listTitle: AppLocalizations.of(context)!.languageText,
+                              listTitle: AppLocalizations.of(
+                                context,
+                              )!.languageText,
                               listSubtitle:
-                                  (applocaleModel.appLocale == AppLocale.en) ? "English" : "தமிழ்",
+                                  (applocaleModel.appLocale == AppLocale.en)
+                                  ? "English"
+                                  : "தமிழ்",
                               listIcon: Icons.translate,
                               isSegmentedButton: true,
                             );
@@ -89,52 +99,58 @@ class SettingsPage extends ConsumerWidget {
                   ],
                 ),
                 Divider(color: Theme.of(context).dividerColor),
+                // Column(
+                //   spacing: 8,
+                //   crossAxisAlignment: CrossAxisAlignment.stretch,
+                //   children: [
+                //     Text(
+                //       AppLocalizations.of(context)!.dataSyncDisplayText.toUpperCase(),
+                //       style: Theme.of(context).textTheme.titleSmall,
+                //     ),
+                //     // SettingsList(
+                //     //   listTitle: backgroundSyncTitleText,
+                //     //   listSubtitle: backgroundSyncSubtitleText,
+                //     //   listIcon: Icons.task,
+                //     //   isSwitch: true,
+                //     // ),
+                //     SettingsList(
+                //       listTitle: AppLocalizations.of(context)!.syncTitle,
+                //       listSubtitle:
+                //           "${AppLocalizations.of(context)!.lastSyncedText} ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
+                //       listIcon: Icons.sync,
+                //       isButton: true,
+                //       buttonFunc: () async {
+                //         await syncNotifier.syncTransaction();
+                //         ref.invalidate(transactionListProvider);
+                //         if (context.mounted) {
+                //           showScaffoldMessage(
+                //             "Transactions synced successfully!",
+                //             context,
+                //           );
+                //         }
+                //       },
+                //       isLoading: syncModel.isSyncing,
+                //     ),
+                //   ],
+                // ),
+                // Divider(color: Theme.of(context).dividerColor),
                 Column(
                   spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.dataSyncDisplayText.toUpperCase(),
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    // SettingsList(
-                    //   listTitle: backgroundSyncTitleText,
-                    //   listSubtitle: backgroundSyncSubtitleText,
-                    //   listIcon: Icons.task,
-                    //   isSwitch: true,
-                    // ),
-                    SettingsList(
-                      listTitle: AppLocalizations.of(context)!.syncTitle,
-                      listSubtitle:
-                          "${AppLocalizations.of(context)!.lastSyncedText} ${DateTime.now().difference(syncModel.lastSynced).inMinutes}m ago",
-                      listIcon: Icons.sync,
-                      isButton: true,
-                      buttonFunc: () async {
-                        await syncNotifier.syncTransaction();
-                        ref.invalidate(transactionListProvider);
-                        if (context.mounted) {
-                          showScaffoldMessage(
-                            "Transactions synced successfully!",
-                            context,
-                          );
-                        }
-                      },
-                      isLoading: syncModel.isSyncing,
-                    ),
-                  ],
-                ),
-                Divider(color: Theme.of(context).dividerColor),
-                Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.notificationTitleText.toUpperCase(),
+                      AppLocalizations.of(
+                        context,
+                      )!.notificationTitleText.toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SettingsList(
-                      listTitle: AppLocalizations.of(context)!.dailyRemainderTitleText,
-                      listSubtitle: AppLocalizations.of(context)!.dailyRemainderSubtitleText,
+                      listTitle: AppLocalizations.of(
+                        context,
+                      )!.dailyRemainderTitleText,
+                      listSubtitle: AppLocalizations.of(
+                        context,
+                      )!.dailyRemainderSubtitleText,
                       listIcon: Icons.notifications,
                       isSwitch: true,
                       switchValue: settingsModel.remainder,
