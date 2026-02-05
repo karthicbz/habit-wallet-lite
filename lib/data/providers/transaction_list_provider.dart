@@ -64,6 +64,25 @@ class TransactionListNotifier extends _$TransactionListNotifier {
     }
   }
 
+  void searchTransaction(String text) async {
+    if (text.isEmpty) {
+      final sorted = state.dummyTransactionModel
+        ..sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
+      state = state.copyWith(transactionModel: [...sorted]);
+    } else {
+      List<TransactionModel> transactions = state.dummyTransactionModel
+          .where(
+            (t) =>
+                (t.amount.toString().contains(text) ||
+                t.category!.name.toLowerCase().contains(text) ||
+                t.notes!.toLowerCase().contains(text)),
+          )
+          .toList();
+
+      state = state.copyWith(transactionModel: [...transactions]);
+    }
+  }
+
   // Future<void> loadJsonFromFile() async {
   //   // print("transactionStatus: ${transactionLoadStatus.values}");
   //   state = state.copyWith(isLoading: true);

@@ -15,6 +15,8 @@ class TransactionPage extends ConsumerStatefulWidget {
 }
 
 class _TransactionPageState extends ConsumerState<TransactionPage> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +48,10 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                 leading: Icon(Icons.search),
                 hintText: "Search Transaction",
                 elevation: WidgetStatePropertyAll(1),
+                controller: searchController,
+                onChanged: (value) => ref
+                    .read(transactionListProvider.notifier)
+                    .searchTransaction(value.toLowerCase()),
               ),
               SizedBox(height: 8),
               (transactionListHelper.isLoading)
