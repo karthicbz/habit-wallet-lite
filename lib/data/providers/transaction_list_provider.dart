@@ -64,50 +64,50 @@ class TransactionListNotifier extends _$TransactionListNotifier {
     }
   }
 
-  Future<void> loadJsonFromFile() async {
-    // print("transactionStatus: ${transactionLoadStatus.values}");
-    state = state.copyWith(isLoading: true);
-    if (_transactionLoadStatus.values.isEmpty) {
-      _transactionLoadStatus.put("jsonLoaded", false);
-    }
-    if (_transactionLoadStatus.values.first == false) {
-      final jsonString = await rootBundle.loadString(
-        'assets/transactions.json',
-      );
-      final data = jsonDecode(jsonString);
-      // print("data: $data");
-      List<TransactionModel> transactionModel = [];
-      List<dynamic> transactions =
-          data["BARB0KIMXXX"][0]["decrypted_data"]["Account"]["Transactions"]["Transaction"];
-      for (var t in transactions) {
-        transactionModel.add(
-          TransactionModel(
-            id: Uuid().v1(),
-            remoteId: t["narration"],
-            transactionType: (t["type"] == "DEBIT")
-                ? Transaction.expense
-                : Transaction.income,
-            category: Category.others,
-            amount: double.parse(t["amount"]),
-            transactionDate: DateTime.parse(t["transactionTimestamp"]),
-            notes: null,
-            files: [],
-            isEditedLocally: false,
-            updatedAt: DateTime.now(),
-            syncedAt: null,
-          ),
-        );
-      }
+  // Future<void> loadJsonFromFile() async {
+  //   // print("transactionStatus: ${transactionLoadStatus.values}");
+  //   state = state.copyWith(isLoading: true);
+  //   if (_transactionLoadStatus.values.isEmpty) {
+  //     _transactionLoadStatus.put("jsonLoaded", false);
+  //   }
+  //   if (_transactionLoadStatus.values.first == false) {
+  //     final jsonString = await rootBundle.loadString(
+  //       'assets/transactions.json',
+  //     );
+  //     final data = jsonDecode(jsonString);
+  //     // print("data: $data");
+  //     List<TransactionModel> transactionModel = [];
+  //     List<dynamic> transactions =
+  //         data["BARB0KIMXXX"][0]["decrypted_data"]["Account"]["Transactions"]["Transaction"];
+  //     for (var t in transactions) {
+  //       transactionModel.add(
+  //         TransactionModel(
+  //           id: Uuid().v1(),
+  //           remoteId: t["narration"],
+  //           transactionType: (t["type"] == "DEBIT")
+  //               ? Transaction.expense
+  //               : Transaction.income,
+  //           category: Category.others,
+  //           amount: double.parse(t["amount"]),
+  //           transactionDate: DateTime.parse(t["transactionTimestamp"]),
+  //           notes: null,
+  //           files: [],
+  //           isEditedLocally: false,
+  //           updatedAt: DateTime.now(),
+  //           syncedAt: null,
+  //         ),
+  //       );
+  //     }
 
-      // print(transactionModel[0].amount);
-      // state = transactionModel;
-      _transactionLoadStatus.put("jsonLoaded", true);
-      _transactionModel.addAll(transactionModel);
-      state = state.copyWith(
-        transactionModel: transactionModel,
-        dummyTransactionModel: transactionModel,
-      );
-    }
-    state = state.copyWith(isLoading: false);
-  }
+  //     // print(transactionModel[0].amount);
+  //     // state = transactionModel;
+  //     _transactionLoadStatus.put("jsonLoaded", true);
+  //     _transactionModel.addAll(transactionModel);
+  //     state = state.copyWith(
+  //       transactionModel: transactionModel,
+  //       dummyTransactionModel: transactionModel,
+  //     );
+  //   }
+  //   state = state.copyWith(isLoading: false);
+  // }
 }

@@ -18,11 +18,11 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
   @override
   void initState() {
     super.initState();
-    final transactionListNotifier = ref.read(transactionListProvider.notifier);
-    Future.delayed(
-      Duration.zero,
-      () async => await transactionListNotifier.loadJsonFromFile(),
-    );
+    // final transactionListNotifier = ref.read(transactionListProvider.notifier);
+    // Future.delayed(
+    //   Duration.zero,
+    //   () async => await transactionListNotifier.loadJsonFromFile(),
+    // );
   }
 
   @override
@@ -42,6 +42,12 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                 AppLocalizations.of(context)!.transactionText,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
+              SearchBar(
+                leading: Icon(Icons.search),
+                hintText: "Search Transaction",
+                elevation: WidgetStatePropertyAll(1),
+              ),
+              SizedBox(height: 8),
               (transactionListHelper.isLoading)
                   ? LinearProgressIndicator()
                   : Expanded(
@@ -100,15 +106,15 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              (transactionListHelper
-                                          .transactionModel[index]
-                                          .isEditedLocally ??
-                                      false)
-                                  ? Badge(
-                                      label: Text("Edited Locally"),
-                                      backgroundColor: Colors.orange[300],
-                                    )
-                                  : SizedBox.shrink(),
+                              // (transactionListHelper
+                              //             .transactionModel[index]
+                              //             .isEditedLocally ??
+                              //         false)
+                              //     ? Badge(
+                              //         label: Text("Edited Locally"),
+                              //         backgroundColor: Colors.orange[300],
+                              //       )
+                              //     : SizedBox.shrink(),
                             ],
                           ),
                           subtitle: Column(

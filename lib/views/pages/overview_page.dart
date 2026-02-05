@@ -12,7 +12,6 @@ import 'package:habit_wallet_lite/views/pages/new_transaction_page.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 class OverviewPage extends ConsumerStatefulWidget {
   const OverviewPage({super.key});
 
@@ -24,12 +23,12 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
   @override
   void initState() {
     super.initState();
-    final chartNotifier = ref.read(chartProvider.notifier);
-    final transactionListNotifier = ref.read(transactionListProvider.notifier);
-    Future.delayed(Duration.zero, () async {
-      await transactionListNotifier.loadJsonFromFile();
-      chartNotifier.getChartData();
-    });
+    // final chartNotifier = ref.read(chartProvider.notifier);
+    // final transactionListNotifier = ref.read(transactionListProvider.notifier);
+    // Future.delayed(Duration.zero, () async {
+    //   await transactionListNotifier.loadJsonFromFile();
+    //   chartNotifier.getChartData();
+    // });
   }
 
   @override
@@ -65,7 +64,6 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
                           yValueMapper: (m, _) => m.debit,
                           name: 'Debit',
                           color: Theme.of(context).colorScheme.error,
-
                         ),
                         ColumnSeries<ChartModel, String>(
                           animationDuration: 0,
