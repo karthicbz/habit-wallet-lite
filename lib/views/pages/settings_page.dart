@@ -4,14 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_wallet_lite/data/constants/app_constants.dart';
 import 'package:habit_wallet_lite/data/models/app_locale_model.dart';
 import 'package:habit_wallet_lite/data/models/settings_model.dart';
-import 'package:habit_wallet_lite/data/models/sync_model.dart';
 import 'package:habit_wallet_lite/data/providers/locale_provider.dart';
 import 'package:habit_wallet_lite/data/providers/settings_provider.dart';
-import 'package:habit_wallet_lite/data/providers/sync_provider.dart';
-import 'package:habit_wallet_lite/data/providers/transaction_list_provider.dart';
 import 'package:habit_wallet_lite/views/pages/login_page.dart';
 import 'package:habit_wallet_lite/views/widgets/custom_elevated_button.dart';
-import 'package:habit_wallet_lite/views/widgets/show_scaffold_message.dart';
 
 import '../../l10n/app_localizations.dart';
 
@@ -23,9 +19,9 @@ class SettingsPage extends ConsumerWidget {
     SettingsModel settingsModel = ref.watch(settingsProvider);
     SettingsNotifier settingsNotifier = ref.read(settingsProvider.notifier);
 
-    SyncModel syncModel = ref.watch(syncProvider);
+    // SyncModel syncModel = ref.watch(syncProvider);
 
-    SyncNotifier syncNotifier = ref.read(syncProvider.notifier);
+    // SyncNotifier syncNotifier = ref.read(syncProvider.notifier);
 
     return Scaffold(
       // appBar: AppBar(

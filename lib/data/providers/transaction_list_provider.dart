@@ -1,10 +1,6 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:habit_wallet_lite/data/models/transaction_model.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
 
 import '../constants/hive_boxes.dart';
 
@@ -37,12 +33,12 @@ class TransactionListHelper {
 
 @Riverpod(keepAlive: true)
 class TransactionListNotifier extends _$TransactionListNotifier {
-  late Box<bool> _transactionLoadStatus;
+  // late Box<bool> _transactionLoadStatus;
   late Box<TransactionModel> _transactionModel;
 
   @override
   TransactionListHelper build() {
-    _transactionLoadStatus = Hive.box(transactionStatusBox);
+    // _transactionLoadStatus = Hive.box(transactionStatusBox);
     _transactionModel = Hive.box(transactionBox);
     // // loadJsonFromFile();
     // return [];
