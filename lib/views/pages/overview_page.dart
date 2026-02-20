@@ -25,10 +25,11 @@ class _OverviewPageState extends ConsumerState<OverviewPage> {
     super.initState();
     // final chartNotifier = ref.read(chartProvider.notifier);
     // final transactionListNotifier = ref.read(transactionListProvider.notifier);
-    // Future.delayed(Duration.zero, () async {
-    //   await transactionListNotifier.loadJsonFromFile();
-    //   chartNotifier.getChartData();
-    // });
+    Future.delayed(Duration.zero, () async {
+      // await transactionListNotifier.loadJsonFromFile();
+      // chartNotifier.getChartData();
+      ref.read(chartProvider.notifier).getChartData();
+    });
   }
 
   @override

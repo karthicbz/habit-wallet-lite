@@ -22,6 +22,7 @@ class ChartNotifier extends _$ChartNotifier {
 
   Map<DateTime, ChartModel> monthlyDebitCredit() {
     final List<TransactionModel> txns = _transactionModel.values.toList();
+    // print(txns);
 
     final Map<DateTime, ChartModel> result = {};
 
@@ -33,8 +34,8 @@ class ChartNotifier extends _$ChartNotifier {
 
       final amount = double.parse(txn.amount.toString());
       final type = (txn.transactionType == Transaction.income)
-          ? "DEBIT"
-          : "CREDIT"; // "DEBIT" or "CREDIT"
+          ? "CREDIT"
+          : "DEBIT"; // "DEBIT" or "CREDIT"
 
       if (type == "DEBIT") {
         result[key]!.debit += amount;
@@ -46,18 +47,15 @@ class ChartNotifier extends _$ChartNotifier {
     return result;
   }
 
-  List<ChartModel> toSortedList(
-      Map<DateTime, ChartModel> map,
-      ) {
+  List<ChartModel> toSortedList(Map<DateTime, ChartModel> map) {
     final list = map.values.toList();
     list.sort((a, b) => a.month!.compareTo(b.month!));
     return list;
   }
 
-  void getChartData(){
+  void getChartData() {
     List<ChartModel> data = toSortedList(monthlyDebitCredit());
     // print(data);
     state = data;
   }
-
 }
